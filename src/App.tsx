@@ -4,6 +4,7 @@ import { SpeedInsights } from '@vercel/speed-insights/react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { AboutSection } from './components/AboutSection';
+import { ServicesSection } from './components/ServicesSection';
 import { ProjectsSection } from './components/ProjectsSection';
 import { SkillsSection } from './components/SkillsSection';
 import { TimelineSection } from './components/TimelineSection';
@@ -18,6 +19,7 @@ export default function App() {
       <main>
         <Hero />
         <AboutSection />
+        <ServicesSection />
         <ProjectsSection />
         <SkillsSection />
         <TimelineSection />
@@ -25,7 +27,6 @@ export default function App() {
         <ContactSection />
       </main>
       <Footer />
-      {/* Vercel Telemetry & Real-time Web Vitals Analytics */}
       <Analytics />
       <SpeedInsights />
     </div>
