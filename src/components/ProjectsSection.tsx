@@ -13,11 +13,63 @@ import {
   AlertCircle, 
   Compass,
   Star,
-  ShieldCheck
+  ShieldCheck,
+  ImageIcon
 } from 'lucide-react';
 import { PROJECTS, Project } from '../data/portfolioData';
 
 type FilterType = 'todos' | 'arquitetura' | 'urbanismo' | 'sig' | 'militar';
+
+// Fast Loading Optimized Picture with Skeleton and WebP support
+const ProjectImage: React.FC<{
+  src: string;
+  alt: string;
+  isMilitary?: boolean;
+  className?: string;
+}> = ({ src, alt, isMilitary, className = '' }) => {
+  const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState(false);
+
+  // Derive WebP path
+  const webpSrc = src.replace(/\.jpg$/, '.webp');
+
+  return (
+    <div className="relative w-full h-full bg-[#EAE8E2] overflow-hidden flex items-center justify-center">
+      {/* Skeleton / Shimmer during slow connection loading */}
+      {!loaded && !error && (
+        <div className="absolute inset-0 bg-[#EAE8E2] animate-pulse flex flex-col items-center justify-center text-[#1B1B18]/30 gap-2">
+          <ImageIcon className="w-6 h-6 animate-bounce" />
+          <span className="font-['Space_Mono'] text-[0.55rem] uppercase tracking-widest">Carregando imagem...</span>
+        </div>
+      )}
+
+      {error ? (
+        <div className="p-4 text-center text-xs font-['Space_Mono'] text-[#1B1B18]/40">
+          Visualização indisponível
+        </div>
+      ) : (
+        <picture className="w-full h-full">
+          <source srcSet={webpSrc} type="image/webp" />
+          <source srcSet={src} type="image/jpeg" />
+          <img
+            src={src}
+            alt={alt}
+            referrerPolicy="no-referrer"
+            loading="lazy"
+            decoding="async"
+            onLoad={() => setLoaded(true)}
+            onError={() => setError(true)}
+            className={`w-full h-full transition-all duration-500 ${
+              loaded ? 'opacity-100' : 'opacity-0'
+            } ${
+              isMilitary ? 'object-contain p-4 bg-white' : 'object-cover'
+            } ${className}`}
+          />
+        </picture>
+      )}
+    </div>
+  );
+};
 
 export const ProjectsSection: React.FC = () => {
   const [filter, setFilter] = useState<FilterType>('todos');
@@ -97,23 +149,21 @@ export const ProjectsSection: React.FC = () => {
                   </div>
                 )}
 
-                {/* Project Image */}
+                {/* Project Image Container with WebP & Skeleton */}
                 <div className="relative aspect-[16/10] overflow-hidden bg-[#F8F7F4] border-b border-[#1B1B18]/10">
-                  <img
+                  <ProjectImage
                     src={project.image}
                     alt={project.title}
-                    referrerPolicy="no-referrer"
-                    loading="lazy"
-                    decoding="async"
-                    className={`w-full h-full ${project.category === 'militar' ? 'object-contain p-4 bg-white' : 'object-cover'} group-hover:scale-105 transition-transform duration-500`}
+                    isMilitary={project.category === 'militar'}
+                    className="group-hover:scale-105"
                   />
                   
                   {/* Category Pill */}
-                  <div className="absolute top-3 left-3 bg-[#1B1B18] text-[#F8F7F4] px-2.5 py-1 font-['Space_Mono'] text-[0.6rem] uppercase tracking-wider">
+                  <div className="absolute top-3 left-3 bg-[#1B1B18] text-[#F8F7F4] px-2.5 py-1 font-['Space_Mono'] text-[0.6rem] uppercase tracking-wider z-10">
                     {project.categoryLabel}
                   </div>
 
-                  <div className="absolute bottom-2 left-3 right-3 flex items-center justify-between text-xs text-[#1B1B18] bg-white/95 backdrop-blur-sm px-2.5 py-1 border border-[#1B1B18]/10 font-['Space_Mono'] text-[0.6rem] uppercase">
+                  <div className="absolute bottom-2 left-3 right-3 flex items-center justify-between text-xs text-[#1B1B18] bg-white/95 backdrop-blur-sm px-2.5 py-1 border border-[#1B1B18]/10 font-['Space_Mono'] text-[0.6rem] uppercase z-10">
                     <span className="flex items-center gap-1">
                       <Calendar className="w-3 h-3 text-[#A68B6E]" />
                       {project.year}
@@ -228,11 +278,10 @@ export const ProjectsSection: React.FC = () => {
 
             {/* Modal Image */}
             <div className="relative aspect-[16/9] border border-[#1B1B18] overflow-hidden bg-white">
-              <img
+              <ProjectImage
                 src={selectedProject.image}
                 alt={selectedProject.title}
-                referrerPolicy="no-referrer"
-                className={`w-full h-full ${selectedProject.category === 'militar' ? 'object-contain p-6' : 'object-cover'}`}
+                isMilitary={selectedProject.category === 'militar'}
               />
             </div>
 
