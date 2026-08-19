@@ -1,57 +1,82 @@
 import React, { useState } from 'react';
-import { MapPin, Calendar, Check, X, Youtube, FileCheck, ArrowUpRight } from 'lucide-react';
-import { Project, PROJECTS } from '../data/portfolioData';
+import { 
+  X, 
+  MapPin, 
+  Calendar, 
+  ExternalLink, 
+  Layers, 
+  FileCheck, 
+  Youtube, 
+  Award, 
+  ArrowRight, 
+  CheckCircle2, 
+  AlertCircle, 
+  Compass,
+  Star,
+  ShieldCheck
+} from 'lucide-react';
+import { PROJECTS, Project } from '../data/portfolioData';
+
+type FilterType = 'todos' | 'arquitetura' | 'urbanismo' | 'sig' | 'militar';
 
 export const ProjectsSection: React.FC = () => {
-  const [activeCategory, setActiveCategory] = useState<string>('todos');
+  const [filter, setFilter] = useState<FilterType>('todos');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  const categories = [
-    { id: 'todos', label: 'Todos os Trabalhos' },
-    { id: 'sig', label: 'SIG & Geoprocessamento' },
-    { id: 'urbanismo', label: 'Urbanismo & Masterplans' },
-    { id: 'arquitetura', label: 'Arquitetura & Rural' },
-    { id: 'militar', label: 'Engenharia Militar & Obras' }
-  ];
+  const filteredProjects = filter === 'todos' 
+    ? PROJECTS 
+    : PROJECTS.filter(p => p.category === filter);
 
-  const filteredProjects = activeCategory === 'todos'
-    ? PROJECTS
-    : PROJECTS.filter(p => p.category === activeCategory);
+  const filterTabs: { key: FilterType; label: string }[] = [
+    { key: 'todos', label: 'Todos os Projetos' },
+    { key: 'arquitetura', label: 'Arquitetura & BIM' },
+    { key: 'urbanismo', label: 'Urbanismo & Masterplans' },
+    { key: 'sig', label: 'SIG & Geointeligência' },
+    { key: 'militar', label: 'Engenharia Militar & Pública' }
+  ];
 
   return (
     <section id="projetos" className="py-20 md:py-28 bg-[#F8F7F4] border-b border-[#1B1B18]/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-          <div className="max-w-2xl space-y-3">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="max-w-3xl space-y-3">
             <span className="font-['Space_Mono'] text-[0.65rem] uppercase tracking-[0.2em] text-[#A68B6E] font-bold block">
-              02 // PORTFÓLIO & ACERVO TÉCNICO
+              02 // ACERVO TÉCNICO & RESULTADOS
             </span>
             <h2 className="font-['Cormorant_Garamond'] text-4xl sm:text-6xl font-normal text-[#1B1B18] uppercase tracking-[-0.02em]">
-              Projetos & Obras
+              Projetos em Destaque
             </h2>
-            <p className="text-[#1B1B18]/70 text-sm sm:text-base">
-              Seleção de projetos com registro de Responsabilidade Técnica (RRT/TRT), patentes no CAU-BR e soluções territoriais.
+            <p className="text-[#1B1B18]/70 text-base sm:text-lg">
+              Estudos de caso reais com problemas resolvidos, metodologias aplicadas e evidências técnicas verificáveis.
             </p>
           </div>
 
-          {/* Category Filter Buttons */}
-          <div className="flex flex-wrap gap-2">
-            {categories.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
-                className={`px-3.5 py-1.5 font-['Space_Mono'] text-[0.65rem] uppercase tracking-wider transition-all whitespace-nowrap border ${
-                  activeCategory === cat.id
-                    ? 'bg-[#1B1B18] text-[#F8F7F4] border-[#1B1B18]'
-                    : 'bg-white text-[#1B1B18] border-[#1B1B18]/15 hover:border-[#1B1B18]'
-                }`}
-              >
-                {cat.label}
-              </button>
-            ))}
+          {/* Verification Badge */}
+          <div className="flex items-center gap-2 p-3 bg-white border border-[#1B1B18]/15 font-['Space_Mono'] text-xs text-[#1B1B18]">
+            <ShieldCheck className="w-4 h-4 text-[#A68B6E]" />
+            <span className="text-[0.65rem] uppercase tracking-wider font-semibold">
+              RRTs & Acervos Registrados
+            </span>
           </div>
+        </div>
+
+        {/* Filter Navigation Chips */}
+        <div className="flex flex-wrap gap-2 pt-2 border-b border-[#1B1B18]/10 pb-4">
+          {filterTabs.map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setFilter(tab.key)}
+              className={`px-4 py-2 font-['Space_Mono'] text-[0.68rem] uppercase tracking-wider transition-all cursor-pointer whitespace-nowrap ${
+                filter === tab.key
+                  ? 'bg-[#1B1B18] text-[#F8F7F4] font-bold border border-[#1B1B18]'
+                  : 'bg-white text-[#1B1B18]/70 border border-[#1B1B18]/15 hover:border-[#1B1B18] hover:text-[#1B1B18]'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
         </div>
 
         {/* Projects Grid */}
@@ -62,18 +87,28 @@ export const ProjectsSection: React.FC = () => {
               <div
                 key={project.id}
                 onClick={() => setSelectedProject(project)}
-                className="group cursor-pointer border border-[#1B1B18]/15 bg-white hover:border-[#A68B6E] transition-all duration-300 flex flex-col justify-between shadow-sm"
+                className="group cursor-pointer border border-[#1B1B18]/15 bg-white hover:border-[#A68B6E] transition-all duration-300 flex flex-col justify-between shadow-sm relative"
               >
+                {/* Featured Star Badge */}
+                {project.isFeatured && (
+                  <div className="absolute top-3 right-3 z-10 bg-[#A68B6E] text-white px-2 py-0.5 font-['Space_Mono'] text-[0.55rem] uppercase tracking-widest font-bold flex items-center gap-1 shadow-sm">
+                    <Star className="w-3 h-3 fill-current" />
+                    <span>Destaque</span>
+                  </div>
+                )}
+
                 {/* Project Image */}
                 <div className="relative aspect-[16/10] overflow-hidden bg-[#F8F7F4] border-b border-[#1B1B18]/10">
                   <img
                     src={project.image}
                     alt={project.title}
                     referrerPolicy="no-referrer"
+                    loading="lazy"
+                    decoding="async"
                     className={`w-full h-full ${project.category === 'militar' ? 'object-contain p-4 bg-white' : 'object-cover'} group-hover:scale-105 transition-transform duration-500`}
                   />
                   
-                  {/* Space Mono Tag */}
+                  {/* Category Pill */}
                   <div className="absolute top-3 left-3 bg-[#1B1B18] text-[#F8F7F4] px-2.5 py-1 font-['Space_Mono'] text-[0.6rem] uppercase tracking-wider">
                     {project.categoryLabel}
                   </div>
@@ -104,20 +139,29 @@ export const ProjectsSection: React.FC = () => {
                     </p>
                   </div>
 
-                  <div className="pt-4 border-t border-[#1B1B18]/10 flex items-center justify-between font-['Space_Mono'] text-[0.65rem]">
-                    <div className="flex flex-wrap gap-1">
-                      {project.tags.slice(0, 2).map((t, tIdx) => (
-                        <span key={tIdx} className="px-2 py-0.5 border border-[#1B1B18]/10 text-[#1B1B18]/70 uppercase">
-                          {t}
-                        </span>
-                      ))}
-                    </div>
+                  {/* Highlights Bullet List */}
+                  <div className="space-y-1.5 pt-2 border-t border-[#1B1B18]/10 text-xs text-[#1B1B18]/80 font-['Inter']">
+                    {project.highlights.slice(0, 2).map((hl, hIdx) => (
+                      <div key={hIdx} className="flex items-start gap-1.5 line-clamp-1">
+                        <CheckCircle2 className="w-3 h-3 text-[#A68B6E] shrink-0 mt-0.5" />
+                        <span className="text-[0.72rem] truncate">{hl}</span>
+                      </div>
+                    ))}
+                  </div>
 
-                    <span className="font-bold text-[#1B1B18] group-hover:text-[#A68B6E] flex items-center gap-1 uppercase tracking-wider">
-                      Ver <ArrowUpRight className="w-3.5 h-3.5" />
+                  {/* Card Footer */}
+                  <div className="pt-3 border-t border-[#1B1B18]/10 flex items-center justify-between font-['Space_Mono'] text-[0.65rem] text-[#1B1B18]">
+                    <span className="text-[#A68B6E] font-bold uppercase tracking-wider group-hover:underline flex items-center gap-1">
+                      Ver Estudo Completo <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                     </span>
+                    {project.youtubeUrl && (
+                      <span className="flex items-center gap-1 text-red-600">
+                        <Youtube className="w-3.5 h-3.5" /> Vídeo 3D
+                      </span>
+                    )}
                   </div>
                 </div>
+
               </div>
             );
           })}
@@ -125,24 +169,27 @@ export const ProjectsSection: React.FC = () => {
 
       </div>
 
-      {/* Interactive Detail Modal */}
+      {/* Interactive Detail Modal with Problem -> Solution -> Result Structure */}
       {selectedProject && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1B1B18]/80 backdrop-blur-sm overflow-y-auto">
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1B1B18]/80 backdrop-blur-sm overflow-y-auto"
+          onClick={() => setSelectedProject(null)}
+        >
           <div 
-            className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-[#F8F7F4] border border-[#1B1B18] shadow-2xl p-6 sm:p-8 space-y-6 animate-in fade-in zoom-in-95 duration-200"
+            className="relative w-full max-w-4xl max-h-[92vh] overflow-y-auto bg-[#F8F7F4] border border-[#1B1B18] shadow-2xl p-6 sm:p-9 space-y-7 animate-in fade-in zoom-in-95 duration-200"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Close Button */}
             <button
               onClick={() => setSelectedProject(null)}
-              className="absolute top-5 right-5 p-2 border border-[#1B1B18]/20 bg-white text-[#1B1B18] hover:bg-[#1B1B18] hover:text-white transition-colors"
+              className="absolute top-5 right-5 p-2 border border-[#1B1B18]/20 bg-white text-[#1B1B18] hover:bg-[#1B1B18] hover:text-white transition-colors cursor-pointer"
               aria-label="Fechar janela"
             >
               <X className="w-5 h-5" />
             </button>
 
             {/* Modal Header */}
-            <div className="space-y-2 pr-10">
+            <div className="space-y-2 pr-12">
               <div className="flex flex-wrap gap-2 items-center font-['Space_Mono'] text-[0.65rem] uppercase">
                 <span className="px-2.5 py-1 bg-[#1B1B18] text-[#F8F7F4]">
                   {selectedProject.categoryLabel}
@@ -155,10 +202,17 @@ export const ProjectsSection: React.FC = () => {
                     Área: {selectedProject.area}
                   </span>
                 )}
+                {selectedProject.isFeatured && (
+                  <span className="px-2 py-0.5 bg-[#A68B6E] text-white font-bold">
+                    PROJETO ÂNCORA
+                  </span>
+                )}
               </div>
+
               <h3 className="font-['Cormorant_Garamond'] text-3xl sm:text-4xl font-bold uppercase text-[#1B1B18] leading-tight">
                 {selectedProject.title}
               </h3>
+
               <div className="flex flex-wrap items-center gap-4 text-xs text-[#1B1B18]/70 pt-1 font-['Space_Mono'] text-[0.65rem]">
                 <span className="flex items-center gap-1">
                   <MapPin className="w-3.5 h-3.5 text-[#A68B6E]" />
@@ -182,86 +236,138 @@ export const ProjectsSection: React.FC = () => {
               />
             </div>
 
-            {/* Technical Registration Badge */}
-            {selectedProject.registry && (
-              <div className="p-4 border border-[#1B1B18]/15 bg-white flex items-start gap-3.5">
-                <FileCheck className="w-5 h-5 text-[#A68B6E] shrink-0 mt-0.5" />
-                <div className="text-xs">
-                  <span className="font-['Space_Mono'] uppercase text-[#1B1B18]/50 block font-semibold text-[0.6rem] tracking-wider">REGISTRO DE RESPONSABILIDADE TÉCNICA</span>
-                  <span className="text-[#1B1B18] font-['Space_Mono'] font-bold text-xs">{selectedProject.registry}</span>
+            {/* Verifiable Technical Registration Badges */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {selectedProject.registry && (
+                <div className="p-3.5 border border-[#1B1B18]/15 bg-white flex items-start gap-3">
+                  <FileCheck className="w-4 h-4 text-[#A68B6E] shrink-0 mt-0.5" />
+                  <div className="text-xs">
+                    <span className="font-['Space_Mono'] uppercase text-[#1B1B18]/50 block font-semibold text-[0.6rem] tracking-wider">
+                      REGISTRO DE RESPONSABILIDADE
+                    </span>
+                    <span className="text-[#1B1B18] font-['Space_Mono'] font-bold text-xs">
+                      {selectedProject.registry}
+                    </span>
+                  </div>
+                </div>
+              )}
+
+              {selectedProject.evidenceDoc && (
+                <div className="p-3.5 border border-[#1B1B18]/15 bg-white flex items-start gap-3">
+                  <Award className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                  <div className="text-xs">
+                    <span className="font-['Space_Mono'] uppercase text-[#1B1B18]/50 block font-semibold text-[0.6rem] tracking-wider">
+                      EVIDÊNCIA TÉCNICA VERIFICÁVEL
+                    </span>
+                    <span className="text-[#1B1B18] font-['Space_Mono'] font-bold text-xs">
+                      {selectedProject.evidenceDoc}
+                    </span>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Problem -> Solution -> Results Block */}
+            {selectedProject.problem && (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 font-['Inter']">
+                <div className="p-4 bg-amber-500/5 border border-amber-500/20 space-y-1.5">
+                  <span className="font-['Space_Mono'] text-[0.62rem] uppercase tracking-widest text-amber-700 font-bold block flex items-center gap-1">
+                    <AlertCircle className="w-3 h-3" /> 01 // O PROBLEMA
+                  </span>
+                  <p className="text-xs text-[#1B1B18]/80 leading-relaxed">
+                    {selectedProject.problem}
+                  </p>
+                </div>
+
+                <div className="p-4 bg-blue-500/5 border border-blue-500/20 space-y-1.5">
+                  <span className="font-['Space_Mono'] text-[0.62rem] uppercase tracking-widest text-blue-700 font-bold block flex items-center gap-1">
+                    <Compass className="w-3 h-3" /> 02 // ATUAÇÃO & METODOLOGIA
+                  </span>
+                  <p className="text-xs text-[#1B1B18]/80 leading-relaxed">
+                    {selectedProject.solutionMethod || selectedProject.myRoleDetail}
+                  </p>
+                </div>
+
+                <div className="p-4 bg-emerald-500/5 border border-emerald-500/20 space-y-1.5">
+                  <span className="font-['Space_Mono'] text-[0.62rem] uppercase tracking-widest text-emerald-700 font-bold block flex items-center gap-1">
+                    <CheckCircle2 className="w-3 h-3" /> 03 // RESULTADOS REAIS
+                  </span>
+                  <ul className="text-xs text-[#1B1B18]/80 space-y-1">
+                    {selectedProject.resultsAchieved?.map((res, rIdx) => (
+                      <li key={rIdx} className="leading-snug flex items-start gap-1">
+                        <span className="text-emerald-600 font-bold">•</span>
+                        <span>{res}</span>
+                      </li>
+                    )) || (
+                      <li>{selectedProject.highlights[0]}</li>
+                    )}
+                  </ul>
                 </div>
               </div>
             )}
 
-            {/* Full Description */}
+            {/* Full Technical Memorial */}
             <div className="space-y-2">
               <h4 className="font-['Space_Mono'] text-[0.65rem] uppercase tracking-[0.2em] text-[#A68B6E] font-bold">
-                Memorial & Descrição Técnica
+                Memorial Descritivo Completo
               </h4>
-              <p className="text-[#1B1B18]/80 text-sm leading-relaxed font-['Inter']">
+              <p className="text-[#1B1B18]/85 text-sm leading-relaxed font-['Inter']">
                 {selectedProject.description}
               </p>
             </div>
 
-            {/* Highlights list */}
-            {selectedProject.highlights.length > 0 && (
-              <div className="space-y-2.5">
-                <h4 className="font-['Space_Mono'] text-[0.65rem] uppercase tracking-[0.2em] text-[#A68B6E] font-bold">
-                  Destaques Projetuais & Resultados
-                </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  {selectedProject.highlights.map((h, i) => (
-                    <div key={i} className="flex items-start gap-2 text-xs text-[#1B1B18]/80">
-                      <Check className="w-4 h-4 text-[#A68B6E] shrink-0 mt-0.5" />
-                      <span>{h}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Deliverables */}
-            {selectedProject.deliverables.length > 0 && (
-              <div className="space-y-2">
-                <h4 className="font-['Space_Mono'] text-[0.6rem] uppercase tracking-widest text-[#1B1B18]/50">
-                  Entregas Técnicas Realizadas
-                </h4>
-                <div className="flex flex-wrap gap-2 font-['Space_Mono'] text-[0.65rem]">
-                  {selectedProject.deliverables.map((d, i) => (
-                    <span key={i} className="px-3 py-1 bg-white border border-[#1B1B18]/15 text-[#1B1B18]">
-                      {d}
+            {/* Deliverables & Tags */}
+            <div className="space-y-3 pt-2 border-t border-[#1B1B18]/10">
+              <div>
+                <span className="font-['Space_Mono'] text-[0.62rem] uppercase tracking-widest text-[#1B1B18]/50 block font-semibold mb-2">
+                  Entregáveis Técnicos:
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {selectedProject.deliverables.map((item, idx) => (
+                    <span 
+                      key={idx}
+                      className="px-3 py-1 font-['Space_Mono'] text-[0.65rem] border border-[#1B1B18]/15 bg-white text-[#1B1B18]"
+                    >
+                      {item}
                     </span>
                   ))}
                 </div>
               </div>
-            )}
 
-            {/* External / Video Links */}
-            <div className="pt-4 border-t border-[#1B1B18]/10 flex flex-wrap items-center justify-between gap-3">
-              {selectedProject.youtubeUrl ? (
-                <a
-                  href={selectedProject.youtubeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2 bg-red-50 border border-red-200 text-red-800 font-['Space_Mono'] text-[0.65rem] uppercase tracking-wider font-bold transition-colors flex items-center gap-2"
-                >
-                  <Youtube className="w-4 h-4 text-red-600" />
-                  <span>Assistir Conceito 3D no YouTube</span>
-                </a>
-              ) : <div />}
+              <div className="flex flex-wrap items-center justify-between gap-4 pt-4">
+                <div className="flex flex-wrap gap-1.5">
+                  {selectedProject.tags.map((tag, idx) => (
+                    <span key={idx} className="text-[0.6rem] font-['Space_Mono'] text-[#A68B6E] uppercase">
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
 
-              <button
-                onClick={() => setSelectedProject(null)}
-                className="px-5 py-2 border border-[#1B1B18] bg-[#1B1B18] text-[#F8F7F4] hover:bg-[#A68B6E] hover:border-[#A68B6E] font-['Space_Mono'] text-[0.65rem] uppercase tracking-wider font-bold transition-colors cursor-pointer"
-              >
-                Fechar
-              </button>
+                <div className="flex items-center gap-3">
+                  {selectedProject.youtubeUrl && (
+                    <a
+                      href={selectedProject.youtubeUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-2 border border-red-600 text-red-600 hover:bg-red-600 hover:text-white transition-colors font-['Space_Mono'] text-[0.65rem] uppercase flex items-center gap-1.5"
+                    >
+                      <Youtube className="w-4 h-4" />
+                      <span>Ver Animação 3D</span>
+                    </a>
+                  )}
+                  <button
+                    onClick={() => setSelectedProject(null)}
+                    className="px-5 py-2 border border-[#1B1B18] bg-[#1B1B18] text-white hover:bg-[#A68B6E] hover:border-[#A68B6E] transition-colors font-['Space_Mono'] text-[0.65rem] uppercase cursor-pointer"
+                  >
+                    Fechar Detalhes
+                  </button>
+                </div>
+              </div>
             </div>
 
           </div>
         </div>
       )}
-
     </section>
   );
 };

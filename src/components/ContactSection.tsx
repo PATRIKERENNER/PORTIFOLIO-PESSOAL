@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MessageSquare, Check, Copy, Shield, Send } from 'lucide-react';
+import { MessageSquare, Check, Copy, Shield, Send, ArrowRight } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
 export const ContactSection: React.FC = () => {
@@ -9,7 +9,7 @@ export const ContactSection: React.FC = () => {
     name: '',
     email: '',
     phone: '',
-    subject: '',
+    subject: 'Projeto Arquitetônico / BIM',
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
@@ -33,7 +33,7 @@ export const ContactSection: React.FC = () => {
 
   const generateWhatsAppLink = () => {
     const text = encodeURIComponent(
-      `Olá Patrike! Meu nome é ${formData.name || 'um visitante'}. Gostaria de conversar sobre: ${formData.subject || 'Assessoria / Projeto de Arquitetura'}.\n\nMensagem: ${formData.message || ''}`
+      `Olá, Patrike! Meu nome é ${formData.name || 'Visitante'}.\nE-mail: ${formData.email}\nTelefone: ${formData.phone || 'Não informado'}\nÁrea de Interesse: ${formData.subject}\n\nDetalhes da Demanda:\n${formData.message}`
     );
     return `https://wa.me/${PERSONAL_INFO.phoneClean}?text=${text}`;
   };
@@ -45,13 +45,13 @@ export const ContactSection: React.FC = () => {
         {/* Section Header */}
         <div className="max-w-3xl space-y-3 mb-16">
           <span className="font-['Space_Mono'] text-[0.65rem] uppercase tracking-[0.2em] text-[#A68B6E] font-bold block">
-            07 // CANAIS DIRETOS & ATENDIMENTO
+            06 // CANAIS DIRETOS & ATENDIMENTO
           </span>
           <h2 className="font-['Cormorant_Garamond'] text-4xl sm:text-6xl font-normal text-[#1B1B18] uppercase tracking-[-0.02em]">
             Contato & Propostas
           </h2>
           <p className="text-[#1B1B18]/70 text-sm sm:text-base">
-            Disponível para consultorias técnicas, elaboração de projetos arquitetônicos, vistorias e regularização fundiária.
+            Disponível para consultorias técnicas, elaboração de projetos arquitetônicos, masterplans territoriais, vistorias e pareceres periciais.
           </p>
         </div>
 
@@ -69,7 +69,7 @@ export const ContactSection: React.FC = () => {
               {/* Primary Email */}
               <div className="p-4 bg-[#F8F7F4] border border-[#1B1B18]/10 flex items-center justify-between">
                 <div className="space-y-0.5">
-                  <span className="font-['Space_Mono'] text-[0.6rem] uppercase tracking-widest text-[#1B1B18]/50 block">E-MAIL PRINCIPAL</span>
+                  <span className="font-['Space_Mono'] text-[0.6rem] uppercase tracking-widest text-[#1B1B18]/50 block">E-MAIL PROFISSIONAL</span>
                   <a href={`mailto:${PERSONAL_INFO.emailPrimary}`} className="text-xs sm:text-sm font-semibold text-[#1B1B18] hover:text-[#A68B6E] transition-colors font-['Space_Mono']">
                     {PERSONAL_INFO.emailPrimary}
                   </a>
@@ -113,19 +113,19 @@ export const ContactSection: React.FC = () => {
 
             </div>
 
-            {/* Address Card */}
+            {/* Official Institutional Badge Card */}
             <div className="p-6 sm:p-7 bg-white border border-[#1B1B18]/15 space-y-4 shadow-sm">
               <h3 className="font-['Cormorant_Garamond'] text-xl font-bold uppercase text-[#1B1B18]">
-                Endereço de Atuação
+                Sede & Base Institucional
               </h3>
 
               <div className="space-y-3 text-xs text-[#1B1B18]">
                 <div className="flex items-start gap-3">
                   <Shield className="w-4 h-4 text-[#A68B6E] shrink-0 mt-0.5" />
                   <div>
-                    <strong className="font-['Space_Mono'] text-[0.65rem] uppercase block">ENDEREÇO PROFISSIONAL (EB)</strong>
-                    <span>CRO/11 — Quartel General do Exército (QGEx)</span><br />
-                    <span className="font-['Space_Mono'] text-[#1B1B18]/60 text-[0.65rem]">Setor Militar Urbano, Brasília - DF, CEP 70630-901</span>
+                    <strong className="font-['Space_Mono'] text-[0.65rem] uppercase block">ATUAÇÃO PROFISSIONAL</strong>
+                    <span>CRO/11 — Quartel-General do Exército (QGEx)</span><br />
+                    <span className="font-['Space_Mono'] text-[#1B1B18]/60 text-[0.65rem]">Setor Militar Urbano, Brasília - DF</span>
                   </div>
                 </div>
               </div>
@@ -133,7 +133,7 @@ export const ContactSection: React.FC = () => {
 
           </div>
 
-          {/* Col 2: Static Contact Form (7 cols) */}
+          {/* Col 2: Structured Contact Form (7 cols) */}
           <div className="lg:col-span-7">
             <div className="p-6 sm:p-8 bg-white border border-[#1B1B18]/15 shadow-sm">
               
@@ -143,25 +143,25 @@ export const ContactSection: React.FC = () => {
                     <Check className="w-7 h-7" />
                   </div>
                   <h3 className="font-['Cormorant_Garamond'] text-3xl font-bold uppercase text-[#1B1B18]">
-                    Mensagem Preparada
+                    Mensagem Preparada com Sucesso
                   </h3>
                   <p className="text-[#1B1B18]/80 text-sm max-w-md mx-auto font-['Inter']">
-                    Obrigado, <strong>{formData.name}</strong>. Para envio imediato, clique no botão abaixo para conversar diretamente com o Patrike no WhatsApp.
+                    Obrigado, <strong>{formData.name}</strong>. Para envio imediato com resposta rápida, clique no botão abaixo para encaminhar sua solicitação no WhatsApp.
                   </p>
                   <div className="flex flex-wrap justify-center gap-3 pt-4">
                     <a
                       href={generateWhatsAppLink()}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-6 py-3.5 bg-[#1B1B18] text-[#F8F7F4] hover:bg-[#A68B6E] font-['Space_Mono'] text-[0.7rem] uppercase tracking-wider font-bold transition-colors flex items-center gap-2"
+                      className="px-6 py-3.5 bg-emerald-700 hover:bg-emerald-800 text-[#F8F7F4] font-['Space_Mono'] text-[0.7rem] uppercase tracking-wider font-bold transition-colors flex items-center gap-2"
                     >
                       <MessageSquare className="w-4 h-4" />
-                      <span>Enviar via WhatsApp</span>
+                      <span>Abrir no WhatsApp</span>
                     </a>
                     <button
                       onClick={() => {
                         setSubmitted(false);
-                        setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+                        setFormData({ name: '', email: '', phone: '', subject: 'Projeto Arquitetônico / BIM', message: '' });
                       }}
                       className="px-5 py-3.5 border border-[#1B1B18]/20 bg-white text-[#1B1B18] font-['Space_Mono'] text-[0.65rem] uppercase tracking-wider font-semibold cursor-pointer"
                     >
@@ -175,7 +175,7 @@ export const ContactSection: React.FC = () => {
                     Solicitar Proposta ou Parecer
                   </h3>
                   <p className="font-['Space_Mono'] text-[0.65rem] text-[#1B1B18]/60 uppercase">
-                    Preencha os campos para consultar disponibilidade e escopo de projetos.
+                    Preencha os campos para receber uma análise técnica preliminar sem compromisso.
                   </p>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
@@ -217,28 +217,28 @@ export const ContactSection: React.FC = () => {
                     </div>
 
                     <div className="space-y-1">
-                      <label className="font-['Space_Mono'] text-[0.62rem] uppercase tracking-widest text-[#1B1B18]/60 font-bold">Tipo de Demanda</label>
+                      <label className="font-['Space_Mono'] text-[0.62rem] uppercase tracking-widest text-[#1B1B18]/60 font-bold">Tipo de Serviço</label>
                       <select
                         value={formData.subject}
                         onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                         className="w-full px-4 py-2.5 bg-[#F8F7F4] border border-[#1B1B18]/15 text-sm text-[#1B1B18] focus:outline-none focus:border-[#1B1B18] transition-colors"
                       >
-                        <option value="">Selecione a área</option>
                         <option value="Projeto Arquitetônico / BIM">Projeto Arquitetônico / BIM</option>
-                        <option value="Consultoria em Geoprocessamento / SIG">Consultoria em Geoprocessamento / SIG</option>
-                        <option value="Licenciamento & Regularização">Licenciamento & Regularização</option>
-                        <option value="Neuroarquitetura & Clínicas">Neuroarquitetura & Clínicas</option>
-                        <option value="Vistoria Técnica & Laudo">Vistoria Técnica & Laudo</option>
+                        <option value="Urbanismo, Masterplan & Glebas">Urbanismo, Masterplan & Glebas</option>
+                        <option value="Geoprocessamento / SIG & Mapas">Geoprocessamento / SIG & Mapas</option>
+                        <option value="Consultoria em Licitações (Lei 14.133)">Consultoria em Licitações (Lei 14.133)</option>
+                        <option value="Perícia, Vistoria & Parecer Técnico">Perícia, Vistoria & Parecer Técnico</option>
+                        <option value="Neuroarquitetura & Saúde">Neuroarquitetura & Saúde</option>
                       </select>
                     </div>
                   </div>
 
                   <div className="space-y-1">
-                    <label className="font-['Space_Mono'] text-[0.62rem] uppercase tracking-widest text-[#1B1B18]/60 font-bold">Mensagem *</label>
+                    <label className="font-['Space_Mono'] text-[0.62rem] uppercase tracking-widest text-[#1B1B18]/60 font-bold">Detalhes da Demanda *</label>
                     <textarea
                       required
                       rows={4}
-                      placeholder="Descreva detalhes do projeto, metragem ou localização..."
+                      placeholder="Descreva detalhes do projeto, metragem estimada ou localização do imóvel..."
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       className="w-full px-4 py-2.5 bg-[#F8F7F4] border border-[#1B1B18]/15 text-sm text-[#1B1B18] placeholder-[#1B1B18]/40 focus:outline-none focus:border-[#1B1B18] transition-colors resize-none"
@@ -250,7 +250,7 @@ export const ContactSection: React.FC = () => {
                     className="w-full py-3.5 px-6 border border-[#1B1B18] bg-[#1B1B18] text-[#F8F7F4] hover:bg-[#A68B6E] hover:border-[#A68B6E] font-['Space_Mono'] font-bold text-[0.7rem] uppercase tracking-[0.15em] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
                   >
                     <Send className="w-4 h-4" />
-                    <span>Preparar Mensagem de Contato</span>
+                    <span>Preparar Solicitação</span>
                   </button>
                 </form>
               )}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ExternalLink, MessageSquare, Award } from 'lucide-react';
+import { Menu, X, ArrowUpRight, MessageSquare, Award } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
 export const Navbar: React.FC = () => {
@@ -15,13 +15,17 @@ export const Navbar: React.FC = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Sobre', href: '#sobre' },
+    { name: 'Serviços', href: '#servicos' },
     { name: 'Projetos', href: '#projetos' },
-    { name: 'Habilidades', href: '#habilidades' },
+    { name: 'Metodologia', href: '#metodologia' },
     { name: 'Trajetória', href: '#trajetoria' },
     { name: 'Publicações', href: '#publicacoes' },
     { name: 'Contato', href: '#contato' }
   ];
+
+  const whatsappUrl = `https://wa.me/${PERSONAL_INFO.phoneClean}?text=${encodeURIComponent(
+    'Olá, Patrike. Gostaria de solicitar uma proposta / análise técnica para um projeto.'
+  )}`;
 
   return (
     <header
@@ -59,69 +63,52 @@ export const Navbar: React.FC = () => {
         {/* Action Zone */}
         <div className="hidden sm:flex items-center gap-3">
           <a
-            href={PERSONAL_INFO.lattes}
+            href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-3.5 py-2 text-[0.65rem] font-['Space_Mono'] uppercase tracking-wider border border-[#1B1B18]/20 bg-transparent text-[#1B1B18] hover:bg-[#1B1B18] hover:text-[#F8F7F4] transition-all flex items-center gap-1.5 whitespace-nowrap"
+            className="px-4 py-2 text-[0.7rem] font-['Space_Mono'] uppercase tracking-wider bg-[#1B1B18] text-[#F8F7F4] hover:bg-[#A68B6E] transition-all font-bold flex items-center gap-1.5 whitespace-nowrap shadow-sm"
           >
-            <Award className="w-3.5 h-3.5 text-[#A68B6E]" />
-            <span>Lattes</span>
-            <ExternalLink className="w-3 h-3 opacity-60" />
-          </a>
-          <a
-            href={`https://wa.me/${PERSONAL_INFO.phoneClean}?text=Ol%C3%A1%20Patrike,%20gostaria%20de%20conversar%20sobre%20um%20projeto.`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-4 py-2 text-[0.68rem] font-['Space_Mono'] uppercase tracking-wider font-bold bg-[#1B1B18] text-[#F8F7F4] hover:bg-[#A68B6E] transition-all flex items-center gap-1.5 whitespace-nowrap shadow-sm"
-          >
-            <MessageSquare className="w-3.5 h-3.5" />
-            <span>Contato</span>
+            <MessageSquare className="w-3.5 h-3.5 text-emerald-400" />
+            <span>Solicitar Proposta</span>
           </a>
         </div>
 
-        {/* Mobile menu trigger */}
+        {/* Mobile Hamburger Button */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="p-2 text-[#1B1B18] hover:bg-[#1B1B18]/5 border border-[#1B1B18]/20 rounded-none lg:hidden"
-          aria-label="Abrir menu de navegação"
+          className="lg:hidden p-2 border border-[#1B1B18]/20 bg-white text-[#1B1B18] hover:bg-[#1B1B18] hover:text-[#F8F7F4] transition-colors"
+          aria-label="Abrir menu"
         >
           {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer Navigation */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-[#F8F7F4] border-b border-[#1B1B18]/10 px-5 pt-3 pb-6 space-y-4">
-          <div className="flex flex-col space-y-2 font-['Space_Mono'] text-[0.75rem] uppercase tracking-wider">
+        <div className="lg:hidden bg-[#F8F7F4] border-b border-[#1B1B18]/10 px-6 py-6 space-y-4 animate-in slide-in-from-top-2 duration-200">
+          <nav className="flex flex-col space-y-3 font-['Space_Mono'] text-xs uppercase tracking-wider text-[#1B1B18]">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="px-3 py-2 text-[#1B1B18] hover:bg-[#1B1B18]/5 transition-colors"
+                className="py-1.5 border-b border-[#1B1B18]/5 hover:text-[#A68B6E] transition-colors flex items-center justify-between"
               >
-                {link.name}
+                <span>{link.name}</span>
+                <ArrowUpRight className="w-3.5 h-3.5 opacity-40" />
               </a>
             ))}
-          </div>
-          <div className="pt-3 border-t border-[#1B1B18]/10 flex flex-col gap-2">
+          </nav>
+          
+          <div className="pt-2">
             <a
-              href={PERSONAL_INFO.lattes}
+              href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full justify-center px-4 py-2.5 text-[0.7rem] font-['Space_Mono'] uppercase tracking-wider border border-[#1B1B18]/20 text-[#1B1B18] flex items-center gap-2"
+              className="w-full py-3 text-[0.7rem] font-['Space_Mono'] uppercase tracking-wider bg-[#1B1B18] text-[#F8F7F4] hover:bg-[#A68B6E] transition-all font-bold flex items-center justify-center gap-2"
             >
-              <Award className="w-4 h-4 text-[#A68B6E]" />
-              <span>Currículo Lattes CNPq</span>
-            </a>
-            <a
-              href={`https://wa.me/${PERSONAL_INFO.phoneClean}?text=Ol%C3%A1%20Patrike,%20gostaria%20de%20conversar%20sobre%20um%20projeto.`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full justify-center px-4 py-2.5 text-[0.7rem] font-['Space_Mono'] uppercase tracking-wider font-bold bg-[#1B1B18] text-[#F8F7F4] flex items-center gap-2"
-            >
-              <MessageSquare className="w-4 h-4" />
-              <span>Conversar no WhatsApp</span>
+              <MessageSquare className="w-4 h-4 text-emerald-400" />
+              <span>Solicitar Proposta no WhatsApp</span>
             </a>
           </div>
         </div>

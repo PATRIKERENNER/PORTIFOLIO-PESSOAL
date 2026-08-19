@@ -6,11 +6,19 @@ export interface Project {
   year: string;
   location: string;
   role: string;
-  registry?: string; // RRT / TRT / RDA
+  registry?: string; // RRT / TRT / RDA / CAT
+  evidenceDoc?: string;
+  evidenceLink?: string;
   client?: string;
   area?: string;
   summary: string;
   description: string;
+  isFeatured?: boolean;
+  problem?: string;
+  context?: string;
+  myRoleDetail?: string;
+  solutionMethod?: string;
+  resultsAchieved?: string[];
   highlights: string[];
   deliverables: string[];
   image: string;
@@ -55,12 +63,55 @@ export interface SkillCategory {
   skills: { name: string; level: number; tag?: string }[];
 }
 
+export interface ServiceItem {
+  id: string;
+  iconName: string;
+  number: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  targetAudience: string;
+  items: string[];
+  whatsappMessage: string;
+}
+
+export interface ClientProfile {
+  id: string;
+  iconName: string;
+  title: string;
+  badge: string;
+  painPoint: string;
+  solution: string;
+  actionLabel: string;
+  whatsappMessage: string;
+}
+
+export interface MethodologyStep {
+  step: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  output: string;
+}
+
+export interface TrustFactor {
+  title: string;
+  value: string;
+  description: string;
+}
+
+export interface FaqItem {
+  question: string;
+  answer: string;
+  category: 'contratacao' | 'tecnico' | 'legislacao';
+}
+
 export const PERSONAL_INFO = {
   name: 'Patrike Mayko Renner Reis de Abreu',
   displayName: 'Patrike Renner',
-  tagline: 'Arquiteto & Urbanista | Especialista em Neuroarquitetura & Geoprocessamento',
-  subTagline: '3º Sargento do Exército Brasileiro (CRO-11) • Especialista em Direito Ambiental & Urbanístico',
-  bio: `Arquiteto e Urbanista com sólida trajetória multidisciplinar de mais de 15 anos integrando desenho arquitetônico, planejamento urbano, geoprocessamento estratégico (SIG) e gestão pública de infraestrutura. Atualmente militar da ativa do Exército Brasileiro (3º Sargento Técnico na Comissão Regional de Obras da 11ª Região Militar - CRO/11), com passagens expressivas pelo Governo do Distrito Federal (NOVACAP, DER-DF, Administração Regional de Vicente Pires e IBRAM) e órgãos do Poder Judiciário (TRE-DF e MPDFT).`,
+  tagline: 'Arquiteto e Urbanista especializado em projetos, território e inteligência geoespacial.',
+  subTagline: 'Arquitetura + Urbanismo + SIG + Gestão Pública + Geoprocessamento',
+  bio: `Arquiteto e Urbanista com sólida trajetória multidisciplinar de mais de 15 anos integrando desenho arquitetônico de alta precisão, planejamento urbano, geoprocessamento estratégico (SIG) e gestão pública de infraestrutura. Experiência comprovada em órgãos do Governo do Distrito Federal (NOVACAP, DER-DF, Administração Regional de Vicente Pires e IBRAM), Tribunais (TRE-DF e MPDFT) e ambiente de engenharia militar do Exército Brasileiro (CRO/11).`,
   objective: `Promover soluções arquitetônicas, urbanísticas e territoriais de alta precisão que combinem rigor técnico, conformidade legal com a Nova Lei de Licitações (Lei 14.133/2021), eficiência orçamentária, bem-estar humano orientado pela Neuroarquitetura e inovação tecnológica por meio de Geoprocessamento e modelagem BIM.`,
   councilStatus: 'REGISTROS ATIVOS JUNTO AO CAU/BR E CFT/BR',
   cau: 'REGISTRO ATIVO CAU/BR',
@@ -71,68 +122,238 @@ export const PERSONAL_INFO = {
   phone: '(61) 99847-1961',
   phoneClean: '5561998471961',
   location: 'Brasília - DF, Brasil',
-  armyUnit: 'Comissão Regional de Obras da 11ª Região Militar (CRO/11 - QGEx)',
-  profileImage: '/src/assets/images/patrike_renner_profile_1787153663807.jpg'
+  armyUnit: 'Comissão Regional de Obras da 11ª Região Militar (CRO/11 - QGEx)'
 };
 
 export const HIGHLIGHTS_METRICS = [
-  { value: '15+', label: 'Anos de Experiência', detail: 'Projetos públicos, militares e privados' },
-  { value: '50k+ m²', label: 'Área Planejada', detail: 'Masterplans rurais, urbanos e institucionais' },
+  { value: '15+', label: 'Anos de Atuação', detail: 'Projetos públicos, institucionais e privados' },
+  { value: '50k+ m²', label: 'Área Projetada', detail: 'Masterplans rurais, urbanos e complexos' },
   { value: '4', label: 'Especializações Pós-Grad', detail: 'Neuroarquitetura, Ambiental, Urbanismo e Forense' },
   { value: '02', label: 'Livros Publicados', detail: 'Editora Dialética & CBL' }
 ];
 
-export const SKILL_CATEGORIES: SkillCategory[] = [
+export const SERVICES_DATA: ServiceItem[] = [
   {
-    title: 'Arquitetura, BIM & Visualização',
-    icon: 'Building2',
-    skills: [
-      { name: 'Autodesk Revit Architecture (BIM)', level: 95, tag: 'BIM' },
-      { name: 'AutoCAD 2D / 3D Avançado', level: 98, tag: 'CAD' },
-      { name: 'Google SketchUp & Renderização 3D', level: 92, tag: '3D' },
-      { name: 'Maquetes Eletrônicas Fotorrealistas', level: 90, tag: 'Visual' },
-      { name: 'Detalhamento Executivo e Cortes/Fachadas', level: 96, tag: 'Projeto' },
-      { name: 'Projetos de Acessibilidade (NBR 9050 / NBR 16537)', level: 95, tag: 'Normas' },
-      { name: 'Neuroarquitetura & Espaços Hospitalares', level: 90, tag: 'Especialidade' },
-      { name: 'Domótica, Iluminação e Paisagismo Bioclimático', level: 88, tag: 'Sustentável' }
-    ]
+    id: 'arquitetura',
+    number: '01',
+    iconName: 'Building2',
+    title: 'Arquitetura & Compatibilização BIM',
+    subtitle: 'Concepção volumétrica, rigor construtivo e conforto humano',
+    description: 'Desenvolvimento integral de projetos residenciais, comerciais, rurais e institucionais, unindo metodologia fotorrealista, compatibilização multidisciplinar e diretrizes de Neuroarquitetura.',
+    targetAudience: 'Proprietários, incorporadores, construtoras e clínicas de saúde',
+    items: [
+      'Projetos Arquitetônicos Executivos e de Prefeitura',
+      'Modelagem BIM e Detalhamento no Autodesk Revit',
+      'Compatibilização de Projetos de Engenharia e Instalações',
+      'Neuroarquitetura aplicada a Ambientes de Saúde e Comerciais',
+      'Projetos de Acessibilidade Plena (NBR 9050)',
+      'Modelagens e Renderizações Fotorrealistas 3D'
+    ],
+    whatsappMessage: 'Olá, Patrike. Gostaria de solicitar uma proposta para Projeto Arquitetônico / BIM.'
   },
   {
-    title: 'Geoprocessamento, SIG & Cartografia',
-    icon: 'MapPin',
-    skills: [
-      { name: 'Sistemas de Informações Geográficas (SIG / GIS)', level: 94, tag: 'SIG' },
-      { name: 'Mapeamento e Sensoriamento Remoto (Radar SAR Bandas X/P)', level: 90, tag: 'Satélite' },
-      { name: 'Geração de Modelos Digitais DTM e DSM', level: 88, tag: 'Topografia' },
-      { name: 'Geoinformação Ambiental de Parques & Nascentes', level: 92, tag: 'Ambiental' },
-      { name: 'Operação de Drones e Levantamento Cadastral Planialtimétrico', level: 86, tag: 'VANT' },
-      { name: 'Análise Espacial de Tráfego e Redes Rodoviárias', level: 92, tag: 'Mobilidade' }
-    ]
+    id: 'urbanismo',
+    number: '02',
+    iconName: 'Map',
+    title: 'Urbanismo & Masterplans Territoriais',
+    subtitle: 'Planejamento de uso do solo, loteamentos e infraestrutura viária',
+    description: 'Estruturação de grandes glebas rurais e urbanas, estudos de impacto de vizinhança, dimensionamento de circulação e planos diretores setoriais.',
+    targetAudience: 'Empreendimentos rurais, condomínios, municípios e órgãos públicos',
+    items: [
+      'Masterplans Gerais de Grande Porte e Loteamentos',
+      'Estudos de Viabilidade de Implantação e Uso do Solo',
+      'Estudos de Mobilidade Urbana e Readequação Viária',
+      'Regularização Fundiária Urbana e Rural',
+      'Projetos de Paisagismo Bioclimático para o Cerrado',
+      'Projetos de Espaços Comunitários e Complexos Esportivos'
+    ],
+    whatsappMessage: 'Olá, Patrike. Gostaria de conversar sobre um Masterplan / Projeto Urbanístico.'
   },
   {
-    title: 'Gestão Pública, Licitações & Obras',
-    icon: 'ShieldCheck',
-    skills: [
-      { name: 'Nova Lei de Licitações e Contratos (Lei 14.133/2021)', level: 92, tag: 'Legislação' },
-      { name: 'Elaboração de Termos de Referência e Projetos Básicos', level: 95, tag: 'Gestão' },
-      { name: 'Fiscalização e Acompanhamento de Obras de Engenharia', level: 94, tag: 'Campo' },
-      { name: 'Sistema Eletrônico de Informações (SEI!) & SIAFI Básico', level: 90, tag: 'Sistemas' },
-      { name: 'Avaliação de Imóveis Urbanos & Perícias Técnicas', level: 88, tag: 'Perícia' },
-      { name: 'Licenciamento Ambiental Federal de Transportes', level: 90, tag: 'Licenciamento' },
-      { name: 'Gestão do Patrimônio Imobiliário da União', level: 88, tag: 'Patrimônio' }
-    ]
+    id: 'sig',
+    number: '03',
+    iconName: 'Layers',
+    title: 'SIG, Geointeligência & Sensoriamento',
+    subtitle: 'Análise espacial, mapas temáticos e inteligência de dados',
+    description: 'Tratamento de dados geoespaciais com QGIS e ArcGIS, sensoriamento remoto com imagens de satélite e radar SAR (Bandas X e P), e criação de dashboards analíticos.',
+    targetAudience: 'Órgãos públicos, gestores de tráfego, agronegócio e consultorias ambientais',
+    items: [
+      'Mapas Temáticos de Alta Precisão e Cartografia Digital',
+      'Análise Espacial de Acidentes e Sinistros Viários (Painéis SIG)',
+      'Georreferenciamento de Imóveis Rurais e Urbanos',
+      'Diagnósticos Territoriais e Modelagem de Vulnerabilidade',
+      'Processamento de Imagens de Radar SAR e Sensoriamento Remoto',
+      'Estruturação de Bancos de Dados Espaciais e Geoportais'
+    ],
+    whatsappMessage: 'Olá, Patrike. Gostaria de solicitar um serviço de SIG / Geoprocessamento.'
   },
   {
-    title: 'Competências Interpessoais & Liderança',
-    icon: 'Users',
-    skills: [
-      { name: 'Liderança de Equipes Multidisciplinares de Engenharia', level: 95 },
-      { name: 'Comunicação Assertiva, Palestras e Instrução Técnica', level: 92 },
-      { name: 'Mediação de Conflitos e Articulação Interinstitucional', level: 90 },
-      { name: 'Rigor Ético, Transparência e Controle de Danos ao Erário', level: 98 },
-      { name: 'Gestão Comunitária, Voluntariado e Coordenação Social', level: 96 },
-      { name: 'Atuação em Segurança e Brigada de Emergência', level: 90 }
-    ]
+    id: 'consultoria',
+    number: '04',
+    iconName: 'FileCheck',
+    title: 'Consultoria Técnica & Governança Pública',
+    subtitle: 'Apoio especializado sob a Nova Lei de Licitações (Lei 14.133/2021)',
+    description: 'Assessoria a órgãos públicos e empresas licitantes para elaboração e auditoria de documentos técnicos de engenharia e arquitetura, garantindo segurança jurídica.',
+    targetAudience: 'Prefeituras, secretarias, órgãos públicos e empresas concorrentes em licitações',
+    items: [
+      'Elaboração de Termos de Referência (TR) e Projetos Básicos',
+      'Análise de Conformidade com a Nova Lei de Licitações (Lei 14.133/2021)',
+      'Apoio Técnico em Fiscalização e Acompanhamento de Obras',
+      'Auditoria Documental e Análise de Dano ao Erário',
+      'Assessoria em Licenciamento Ambiental e Regularização',
+      'Padronização de Mapotecas e Acervos Técnicos Digitais'
+    ],
+    whatsappMessage: 'Olá, Patrike. Gostaria de uma Consultoria Técnica / Apoio em Licitações.'
+  },
+  {
+    id: 'pericias',
+    number: '05',
+    iconName: 'Search',
+    title: 'Perícias, Laudos & Assistência Técnica',
+    subtitle: 'Vistorias especializadas, diagnóstico construtivo e pareceres judiciais',
+    description: 'Emissão de laudos periciais arquitetônicos fundamentados em normas da ABNT, com inspeção predial, detecção de patologias construtivas e apoio judicial.',
+    targetAudience: 'Escritórios de advocacia, condomínios, investidores imobiliários e proprietários',
+    items: [
+      'Laudos de Inspeção Predial e Diagnóstico de Patologias',
+      'Pareceres Técnicos de Avaliação de Imóveis Urbanos',
+      'Assistência Técnica Pericial para Processos Judiciais',
+      'Vistoria de Recebimento de Obras e Imóveis Novos',
+      'Detecção de Vazamentos e Falhas com Métodos de Precisão',
+      'Emissão de RRT / TRT para fins legais e comprobatórios'
+    ],
+    whatsappMessage: 'Olá, Patrike. Preciso de um Laudo Técnico / Parecer Pericial.'
+  }
+];
+
+export const CLIENT_PROFILES: ClientProfile[] = [
+  {
+    id: 'pf',
+    iconName: 'User',
+    title: 'Pessoa Física & Famílias',
+    badge: 'Projetos Residenciais & Rurais',
+    painPoint: 'Precisa construir ou regularizar sua casa ou chácara com segurança técnica, aproveitamento solar e sem desperdício de dinheiro.',
+    solution: 'Projetos arquitetônicos completos, maquete fotorrealista 3D, aprovação de prefeitura e emissão de RRT.',
+    actionLabel: 'Planejar Meu Projeto',
+    whatsappMessage: 'Olá, Patrike. Sou pessoa física e gostaria de planejar um projeto residencial/rural.'
+  },
+  {
+    id: 'empresa',
+    iconName: 'Briefcase',
+    title: 'Empresas & Construtoras',
+    badge: 'BIM, Masterplan & Consultoria',
+    painPoint: 'Necessita de compatibilização BIM sem erros em obra, masterplan de grande porte ou apoio técnico em empreendimentos.',
+    solution: 'Modelagem paramétrica Revit, estudos de impacto de tráfego, viabilidade urbana e assessoria técnica contínua.',
+    actionLabel: 'Contratar Consultoria',
+    whatsappMessage: 'Olá, Patrike. Represento uma empresa e gostaria de falar sobre projetos e consultoria técnica.'
+  },
+  {
+    id: 'publico',
+    iconName: 'Landmark',
+    title: 'Setor Público & Jurídico',
+    badge: 'Governança, SIG & Perícias',
+    painPoint: 'Exige rigor com a Lei 14.133/2021, termos de referência consistentes, dashboards de SIG ou laudos para instrução processual.',
+    solution: 'Pareceres técnicos fundamentados, inteligência geoespacial com QGIS e suporte técnico especializado.',
+    actionLabel: 'Solicitar Parecer Técnico',
+    whatsappMessage: 'Olá, Patrike. Gostaria de solicitar apoio técnico / parecer para demanda institucional ou jurídica.'
+  }
+];
+
+export const WORK_METHODOLOGY: MethodologyStep[] = [
+  {
+    step: '01',
+    title: 'Diagnóstico & Alinhamento',
+    subtitle: 'Compreensão profunda das necessidades e restrições',
+    description: 'Levantamento topográfico, cadastral, ambiental e regulatório do imóvel ou território, definindo diretrizes orçamentárias e programa de necessidades.',
+    output: 'Briefing Técnico & Relatório Preliminar de Viabilidade'
+  },
+  {
+    step: '02',
+    title: 'Análise Territorial & Normativa',
+    subtitle: 'Conformidade legal e estudo de viabilidade',
+    description: 'Verificação do plano diretor, zoneamento, impacto de vizinhança e legislação ambiental aplicável para blindar o projeto contra embargos e atrasos.',
+    output: 'Matriz de Condicionantes Legais & Ambientais'
+  },
+  {
+    step: '03',
+    title: 'Modelagem Paramétrica & SIG',
+    subtitle: 'Desenvolvimento em Revit BIM e Geoprocessamento',
+    description: 'Elaboração espacial precisa com plantas, cortes, fachadas fotorrealistas e georreferenciamento geoespacial de alta precisão.',
+    output: 'Modelo BIM 3D & Pranchas de Projeto'
+  },
+  {
+    step: '04',
+    title: 'Compatibilização & Validação',
+    subtitle: 'Revisão multidisciplinar e conformidade técnica',
+    description: 'Checagem rigorosa de interferências entre arquitetura, estruturas e instalações, aplicando preceitos de Neuroarquitetura e ergonomia.',
+    output: 'Projetos Compatibilizados & Memorial Descritivo'
+  },
+  {
+    step: '05',
+    title: 'Entrega Técnica & RRT',
+    subtitle: 'Documentação executiva pronta para execução',
+    description: 'Disponibilização do caderno executivo completo, arquivos digitais, emissão de Registro de Responsabilidade Técnica (RRT) e suporte pós-entrega.',
+    output: 'Caderno Executivo & RRT Emitido no Conselho'
+  }
+];
+
+export const TRUST_FACTORS: TrustFactor[] = [
+  {
+    title: 'Experiência Multidisciplinar',
+    value: '15+ Anos',
+    description: 'Atuação consolidada integrando projetos civis, gestão pública distrital e engenharia militar.'
+  },
+  {
+    title: 'Responsabilidade Registrada',
+    value: 'RRT / TRT',
+    description: 'Registros ativos junto ao CAU/BR e CFT/BR, com Certidões de Acervo Técnico (CAT) disponíveis.'
+  },
+  {
+    title: 'Governança & Rigor Legal',
+    value: 'Lei 14.133',
+    description: 'Domínio da Nova Lei de Licitações, termos de referência, SIAFI e processos de controle.'
+  },
+  {
+    title: 'Tecnologia de Ponta',
+    value: 'BIM & SIG',
+    description: 'Especialista em Autodesk Revit, QGIS, modelagem de dados espaciais e sensoriamento por satélite/radar.'
+  },
+  {
+    title: 'Base Acadêmica Sólida',
+    value: '4 Pós-Graduações',
+    description: 'Títulos em Neuroarquitetura, Licenciamento Ambiental, Direito Urbanístico e Psicologia Forense.'
+  },
+  {
+    title: 'Atendimento Nacional',
+    value: 'Brasília & Remoto',
+    description: 'Sede em Brasília/DF com capacidade operacional para consultorias e projetos em todo o Brasil.'
+  }
+];
+
+export const FAQ_ITEMS: FaqItem[] = [
+  {
+    category: 'contratacao',
+    question: 'Como funciona a contratação de um projeto ou consultoria?',
+    answer: 'O primeiro passo é uma conversa inicial (via WhatsApp ou videoconferência) para entender o escopo. Em seguida, elaboramos uma Proposta Técnica e Comercial detalhada com cronograma, entregáveis e condições de pagamento. Após a aprovação e assinatura do contrato, é emitido o RRT e iniciamos os levantamentos.'
+  },
+  {
+    category: 'tecnico',
+    question: 'Qual a diferença que a Neuroarquitetura faz no projeto?',
+    answer: 'A Neuroarquitetura estuda como a luz, acústica, biofilia, proporções e fluxos influenciam diretamente as emoções e o estresse dos usuários. Em hospitais e clínicas, melhora a recuperação; em escritórios e residências, potencializa a concentração, bem-estar e qualidade de vida.'
+  },
+  {
+    category: 'tecnico',
+    question: 'Como o Geoprocessamento (SIG) pode ajudar meu empreendimento rural ou urbano?',
+    answer: 'O SIG permite mapear com precisão declividades, áreas de preservação permanente (APPs), bacias hidrográficas, insolação e vias de acesso antes de gastar com obras. Isso evita intervenções em áreas proibidas, reduz custos de terraplanagem e otimiza a implantação de construções.'
+  },
+  {
+    category: 'legislacao',
+    question: 'Você emite RRT e laudos válidos judicialmente?',
+    answer: 'Sim. Todos os projetos, laudos e consultorias contam com emissão de Registro de Responsabilidade Técnica (RRT) junto ao CAU/BR ou TRT junto ao CFT/BR, possuindo plena validade jurídica para aprovação em órgãos municipais, estaduais e processos judiciais.'
+  },
+  {
+    category: 'legislacao',
+    question: 'Você atende órgãos públicos e assessora licitações?',
+    answer: 'Sim. Com ampla experiência no setor público (DER-DF, NOVACAP, Administrações Regionais e CRO/11), presto assessoria na elaboração de Termos de Referência, Projetos Básicos, orçamentos e fiscalização de obras em estrita conformidade com a Lei 14.133/2021.'
   }
 ];
 
@@ -146,6 +367,18 @@ export const PROJECTS: Project[] = [
     location: 'DER-DF / Brasília - DF',
     role: 'Desenvolvedor & Analista de Geoprocessamento (GEGEO/COPLAN)',
     client: 'Departamento de Estradas de Rodagem do DF (DER-DF)',
+    isFeatured: true,
+    problem: 'Falta de espacialização georreferenciada e dados unificados dos sinistros de trânsito na malha rodoviária do DF, dificultando a tomada de decisão para obras de contenção de mortes.',
+    context: 'Gerência de Geoinformação (GEGEO) e Coordenação de Planejamento (COPLAN) do DER-DF.',
+    myRoleDetail: 'Co-criador e desenvolvedor do modelo de banco de dados geográfico e mapas temáticos dinâmicos do Painel PARE.',
+    solutionMethod: 'Integração de bases de dados do DER, PMDF, SAMU e Detran em ambiente SIG (QGIS/PostGIS), criando camadas de calor e densidade de acidentes.',
+    resultsAchieved: [
+      'Mapeamento dinâmico de 100% dos pontos críticos de sinistros no DF',
+      'Direcionamento assertivo de investimentos em passarelas, radares e duplicações',
+      'Redução comprovada de tempo de resposta em relatórios de engenharia de tráfego'
+    ],
+    evidenceDoc: 'Portaria DER-DF & Sistema Institucional PARE',
+    evidenceLink: 'https://www.der.df.gov.br',
     summary: 'Plataforma analítica e interativa baseada em SIG para espacialização, mapeamento de calor e diagnóstico preditivo de acidentes de trânsito em toda a malha rodoviária do Distrito Federal.',
     description: 'Solução tecnológica institucional que integrou bases de dados de acidentes com georreferenciamento de precisão. O painel fornece suporte a tomadas de decisão para investimentos em engenharia de tráfego, duplicações de rodovias, passarelas de pedestres, fiscalização eletrônica (pardais) e campanhas educativas da SUTRAN.',
     highlights: [
@@ -166,9 +399,20 @@ export const PROJECTS: Project[] = [
     year: '2023',
     location: 'Taguatinga Sul - DF (Área Especial Sandu Sul)',
     role: 'Arquiteto Autor & Consultor Projetual Titular',
-    registry: 'Registro de Patente RDA Nº 2734 CAU-BR / CAU-DF | RRT 13029248',
+    registry: 'Patente RDA Nº 2734 CAU-BR | RRT 13029248',
+    evidenceDoc: 'Registro de Patente de Modelo RDA Nº 2734 no CAU-BR',
     client: 'Igreja Evangélica Assembleia de Deus de Brasília (ADEB)',
     area: '33.612 m²',
+    isFeatured: true,
+    problem: 'Necessidade de implantar um complexo comunitário para milhares de pessoas em área urbana consolidada com desafios severos de mobilidade, acessibilidade e flexibilidade programática.',
+    context: 'Área Especial Sandu Sul em Taguatinga - DF.',
+    myRoleDetail: 'Arquiteto titular, autor do masterplan urbanístico, estudos de tráfego e responsável técnico depositante da patente.',
+    solutionMethod: 'Setorização em pilotis, terminal multimodal integrado, heliponto, praças bioclimáticas e modulação estrutural para grandes vãos.',
+    resultsAchieved: [
+      'Patente de Modelo de Utilidade formalmente registrada no Conselho de Arquitetura (CAU-BR)',
+      'Capacidade de circulação segura para mais de 10.000 pessoas simultâneas',
+      'Acessibilidade universal integrada com 1.200 vagas de estacionamento'
+    ],
     summary: 'Masterplan arquitetônico e urbanístico de grande porte para centro cultural e esportivo comunitário com patente de modelo de utilidade registrada no CAU-BR.',
     description: 'Projeto completo de planejamento de uso do solo e viabilidade espacial contemplando: Centro Cultural Multidisciplinar, Sede Administrativa, Alojamentos e Apartamentos de Trânsito, Pavilhão Infantil UCADEB, Edifício de Múltiplo Uso, Estacionamento para 1.200 veículos, Heliponto, Terminal de Cargas e Passageiros sobre Pilotis, Praça da Juventude e Praça de Alimentação.',
     highlights: [
@@ -191,8 +435,19 @@ export const PROJECTS: Project[] = [
     location: 'Samambaia Rural Oeste - DF (BR-060 Km 11)',
     role: 'Arquiteto Responsável Técnico',
     registry: 'RRT 12966403 - CAU/DF (Certidão de Acervo Técnico Nº 831049/2023)',
+    evidenceDoc: 'Certidão de Acervo Técnico (CAT) Nº 831049/2023 - CAU/DF',
     client: 'Propriedade Privada',
     area: '51.403,79 m²',
+    isFeatured: true,
+    problem: 'Gleba rural de 5,1 hectares com topografia acentuada e necessidade de implantação de infraestrutura turística sem degradar a vegetação nativa do Cerrado.',
+    context: 'Área rural de Samambaia DF, às margens da rodovia BR-060.',
+    myRoleDetail: 'Responsável técnico pelo projeto executivo geral, implantação topográfica, chalés e edificações de hospitalidade.',
+    solutionMethod: 'Arquitetura bioclimática, preservação de maciços arbóreos, sistema de drenagem sustentável e posicionamento de chalés aproveitando os ventos dominantes.',
+    resultsAchieved: [
+      'Aprovação integral do plano de uso do solo com Certidão de Acervo Técnico emitida',
+      '9 chalés ecológicos, restaurante panorâmico e centro de eventos integrados',
+      'Zero impacto em áreas de preservação ambiental com uso de flora nativa'
+    ],
     summary: 'Projeto arquitetônico e urbanístico integral para empreendimento rural multifuncional com chalés ecológicos, restaurante, centro de eventos e quadras poliesportivas.',
     description: 'Desenvolvimento de projeto básico e executivo com plantas baixas, cortes, fachadas, perspectivas isométricas e implantação topográfica de 51.403 m²: Edifício Sede Administrativa, Restaurante Panorâmico, Casa do Caseiro, Conjunto de Chalés Familiares, Salão de Eventos Multiuso, Vestiários Coletivos, Casa de Campo, Pórtico de Entrada, Estacionamentos e Paisagismo Nativo do Cerrado.',
     highlights: [
@@ -283,70 +538,79 @@ export const EXPERIENCES: Experience[] = [
   {
     period: '2021 — 2023',
     role: 'Desenhista Pleno — Projetos e Engenharia',
-    institution: 'Exército Brasileiro — DEC',
-    department: 'Departamento de Engenharia e Construção',
-    type: 'militar',
-    description: 'Elaboração e interpretação de esboços, croquis e plantas de arquitetura, instalações hidrossanitárias e infraestrutura civil utilizando Revit, AutoCAD e SketchUp.',
+    institution: 'Consórcio TC DUPLICAÇÃO BR-080',
+    department: 'Engenharia de Projetos Viários',
+    type: 'privado',
+    description: 'Desenvolvimento e revisão de projetos executivos da duplicação da rodovia BR-080/DF, geometria viária, terraplanagem, drenagem, sinalização e desapropriações.',
     achievements: [
-      'Compatibilização de projetos multidisciplinares para unidades de engenharia militar',
-      'Elaboração de memoriais descritivos e especificações de materiais de construção'
+      'Detalhamento de interferências complexas e plantas as-built da rodovia'
     ]
   },
   {
     period: '2020 — 2021',
-    role: 'Gerente da Gerência de Adequação Viária',
+    role: 'Gerente de Adequação Viária & Analista de Geoprocessamento',
     institution: 'DER-DF — Departamento de Estradas de Rodagem do DF',
-    department: 'Diretoria de Engenharia / GEEAV',
+    department: 'Coordenação de Planejamento e Gerência de Geoinformação (COPLAN / GEGEO)',
     type: 'publico',
-    description: 'Desenvolvimento e aprovação de projetos viários para adequação de vias públicas no DF: faixas de pedestres, lombadas físicas e eletrônicas, radares e sinalização viária.',
+    description: 'Gestão de estudos técnicos para adequação de tráfego, modelagem de acidentes rodoviários no DF, espacialização em SIG e suporte técnico à Superintendência de Trânsito.',
     achievements: [
-      'Co-criador e articulador técnico do Painel PARE/DF (Sistemas de Informações Geográficas)',
-      'Membro da comissão interinstitucional de implantação do Plano de Interligação da Rede Cicloviária do DF (OS nº 61/2021)'
+      'Co-desenvolvimento do Painel PARE/DF para análise de manchas de acidentes',
+      'Elaboração de estudos de viabilidade técnica para travessias e intervenções viárias no DF'
     ]
   },
   {
-    period: '2018 — 2018',
-    role: 'Diretor da Diretoria de Aprovação e Licenciamento (DIALIC)',
-    institution: 'Governo do Distrito Federal — RA Vicente Pires',
-    department: 'Administração Regional de Vicente Pires',
+    period: '2019 — 2020',
+    role: 'Diretor de Licenciamento de Obras e Desenvolvimento Urbano',
+    institution: 'Governo do Distrito Federal — Administração Regional de Vicente Pires',
+    department: 'Diretoria de Obras e Licenciamento (DIROL)',
     type: 'publico',
-    description: 'Coordenação e emissão de pareceres em análise de projetos arquitetônicos, licenças de funcionamento e observância de normativos urbanísticos distritais.',
+    description: 'Gestão da análise e aprovação de projetos arquitetônicos, emissão de alvarás de construção, habite-se, fiscalização e regularização urbanística no setor habitacional de Vicente Pires.',
     achievements: [
-      'Gestão de processos de licenciamento edilício em área de intensa regularização fundiária',
-      'Comissão de verificação de processos de licitação de iluminação pública e obras'
+      'Condução de processos técnicos complexos de regularização de edificações',
+      'Articulação direta com a SEDUH, NOVACAP e órgãos de controle urbano'
     ]
   },
   {
-    period: '2017 — 2018',
-    role: 'Gerente da Gerência de Elaboração e Aprovação de Projetos (GEEAP)',
-    institution: 'Governo do Distrito Federal — RA Vicente Pires',
-    department: 'Administração Regional de Vicente Pires',
+    period: '2018 — 2019',
+    role: 'Assessor Técnico de Gabinete',
+    institution: 'Governo do Distrito Federal — Administração Regional de Vicente Pires',
+    department: 'Gabinete da Administração',
     type: 'publico',
-    description: 'Análise projetual de obras públicas e privadas, vistorias em campo e organização de acervo técnico.',
+    description: 'Apoio técnico e estratégico em matérias de infraestrutura urbana, drenagem pluvial, pavimentação e interlocução comunitária.',
     achievements: [
-      'Modernização do arquivo técnico e celeridade na análise de plantas residenciais e comerciais'
+      'Acompanhamento de obras emergenciais de infraestrutura urbana no DF'
     ]
   },
   {
-    period: '2020',
-    role: 'Analista Voluntário de Geoinformação Ambiental',
-    institution: 'IBRAM — Instituto Brasília Ambiental / GDF',
-    department: 'Gestão de Geoinformação Ambiental',
-    type: 'voluntario',
-    description: 'Análise espacial, geoprocessamento e mapeamento dos parques ecológicos e unidades de conservação do Distrito Federal (120 horas certificadas).',
+    period: '2016 — 2018',
+    role: 'Consultor de Arquitetura e Engenharia',
+    institution: 'Atuação Autônoma / Escritório Próprio',
+    type: 'privado',
+    description: 'Elaboração de projetos residenciais, comerciais, interiores, modelagem 3D e assessoria técnica em aprovação de projetos legais.',
     achievements: [
-      'Certificação oficial "Voluntário em Ação - Geoinformação Ambiental" pelo GDF/IBRAM'
+      'Dezenas de projetos aprovados com emissão de RRT nos conselhos de classe'
     ]
   },
   {
-    period: '2011 — 2015',
-    role: 'Técnico em Cartografia 2 — Mapeamento da Amazônia',
-    institution: 'CIGEX — Centro de Imagens e Informações Geográficas do Exército',
-    department: 'Divisão de Sensoriamento Remoto',
+    period: '2015 — 2016',
+    role: 'Desenhista Técnico de Engenharia',
+    institution: 'Ministério da Defesa — Exército Brasileiro (CRO/11)',
+    department: 'Comissão Regional de Obras da 11ª Região Militar',
     type: 'militar',
-    description: 'Interpretação e processamento de imagens de satélite radar SAR (Bandas X e P) e ópticas RGB no âmbito do Programa de Sensoriamento Remoto da Amazônia.',
+    description: 'Desenvolvimento de projetos arquitetônicos e executivos para quartéis, vilas militares e instalações da 11ª Região Militar.',
     achievements: [
-      'Geração de Modelos Digitais de Terreno (DTM) e Superfície (DSM), UPHA e coerência interferométrica'
+      'Condecoração com Referência Elogiosa pelo comando da CRO/11 (2015)'
+    ]
+  },
+  {
+    period: '2012 — 2014',
+    role: 'Auxiliar Técnico de Engenharia e Arquitetura',
+    institution: 'Tribunal Regional Eleitoral do DF (TRE-DF)',
+    department: 'Seção de Engenharia e Arquitetura (SEENG)',
+    type: 'publico',
+    description: 'Apoio no acompanhamento de contratos de manutenção predial, projetos de reforma dos Cartórios Eleitorais do DF e acessibilidade.',
+    achievements: [
+      'Levantamentos in loco e elaboração de plantas executivas de acessibilidade NBR 9050'
     ]
   },
   {
@@ -508,5 +772,55 @@ export const AWARDS = [
     title: 'Estagiário Destaque — Menção Honrosa',
     organization: 'Ministério Público do Distrito Federal e Territórios (MPDFT)',
     description: 'Premiação de mérito funcional por excelência operacional nas Promotorias de Justiça.'
+  }
+];
+
+export const SKILL_CATEGORIES: SkillCategory[] = [
+  {
+    title: 'Arquitetura & Modelagem BIM',
+    icon: 'Building2',
+    skills: [
+      { name: 'Autodesk Revit BIM', level: 95, tag: 'Modelagem Paramétrica' },
+      { name: 'AutoCAD 2D & 3D', level: 98, tag: 'Plantas Executivas' },
+      { name: 'Compatibilização de Projetos', level: 92, tag: 'Interferências Construtivas' },
+      { name: 'Neuroarquitetura & Saúde', level: 90, tag: 'Unyleya' },
+      { name: 'Acessibilidade NBR 9050', level: 95, tag: 'Conformidade Legal' },
+      { name: 'Renderização Fotorrealista 3D', level: 88, tag: 'Perspectivas' }
+    ]
+  },
+  {
+    title: 'Geoprocessamento & SIG',
+    icon: 'Map',
+    skills: [
+      { name: 'QGIS Desktop & Plugins', level: 94, tag: 'Análise Espacial' },
+      { name: 'ArcGIS / ArcMap', level: 88, tag: 'Mapeamento Temático' },
+      { name: 'Sensoriamento Remoto & Radar SAR', level: 86, tag: 'Bandas X e P' },
+      { name: 'Georreferenciamento de Imóveis', level: 92, tag: 'Glebas Urbanas/Rurais' },
+      { name: 'Topografia e Planialtimetria', level: 90, tag: 'MEC / Pronatec' },
+      { name: 'Dashboards Geográficos (Painel PARE)', level: 92, tag: 'DER-DF' }
+    ]
+  },
+  {
+    title: 'Governança & Licitações',
+    icon: 'Shield',
+    skills: [
+      { name: 'Nova Lei de Licitações (Lei 14.133/2021)', level: 92, tag: 'IEFEX / ENAP' },
+      { name: 'Termos de Referência & Projetos Básicos', level: 95, tag: 'Engenharia Pública' },
+      { name: 'Fiscalização de Contratos de Obras', level: 94, tag: 'TCU / CRO-11' },
+      { name: 'SIAFI & Sistema SEI!', level: 88, tag: 'Administração Federal' },
+      { name: 'Apuração de Dano ao Erário', level: 85, tag: 'Auditoria Técnica' },
+      { name: 'Licenciamento Ambiental (EIA/RIMA)', level: 90, tag: 'Pós-Graduação' }
+    ]
+  },
+  {
+    title: 'Perícias & Avaliações',
+    icon: 'Search',
+    skills: [
+      { name: 'Inspeção Predial & Patologias', level: 92, tag: 'Laudos Forenses' },
+      { name: 'Avaliação de Imóveis Urbanos', level: 88, tag: 'Método Comparativo' },
+      { name: 'Detecção Hídrica com Geofone', level: 86, tag: 'Subsolo' },
+      { name: 'Assistência Técnica Judicial', level: 90, tag: 'Tribunais' },
+      { name: 'Direito Urbanístico e Regularização', level: 92, tag: 'Pós-Graduação' }
+    ]
   }
 ];
