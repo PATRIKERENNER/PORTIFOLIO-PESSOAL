@@ -29,29 +29,37 @@ const ProjectImage: React.FC<{
 }> = ({ src, alt, isMilitary, className = '' }) => {
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
+  const imgRef = React.useRef<HTMLImageElement>(null);
 
   // Derive WebP path
   const webpSrc = src.replace(/\.jpg$/, '.webp');
+
+  React.useEffect(() => {
+    if (imgRef.current?.complete && imgRef.current?.naturalWidth > 0) {
+      setLoaded(true);
+    }
+  }, [src]);
 
   return (
     <div className="relative w-full h-full bg-[#EAE8E2] overflow-hidden flex items-center justify-center">
       {/* Skeleton / Shimmer during slow connection loading */}
       {!loaded && !error && (
-        <div className="absolute inset-0 bg-[#EAE8E2] animate-pulse flex flex-col items-center justify-center text-[#1B1B18]/30 gap-2">
-          <ImageIcon className="w-6 h-6 animate-bounce" />
-          <span className="font-['Space_Mono'] text-[0.55rem] uppercase tracking-widest">Carregando imagem...</span>
+        <div className="absolute inset-0 bg-[#EAE8E2] animate-pulse flex flex-col items-center justify-center text-[#1B1B18]/30 gap-2 pointer-events-none z-0">
+          <ImageIcon className="w-5 h-5 opacity-40" />
         </div>
       )}
 
       {error ? (
-        <div className="p-4 text-center text-xs font-['Space_Mono'] text-[#1B1B18]/40">
-          Visualização indisponível
+        <div className="p-4 text-center text-xs font-['Space_Mono'] text-[#1B1B18]/40 flex flex-col items-center gap-1">
+          <ImageIcon className="w-5 h-5 opacity-30" />
+          <span className="text-[0.6rem] uppercase tracking-wider">{alt}</span>
         </div>
       ) : (
-        <picture className="w-full h-full">
+        <picture className="w-full h-full relative z-10">
           <source srcSet={webpSrc} type="image/webp" />
           <source srcSet={src} type="image/jpeg" />
           <img
+            ref={imgRef}
             src={src}
             alt={alt}
             referrerPolicy="no-referrer"
@@ -59,8 +67,8 @@ const ProjectImage: React.FC<{
             decoding="async"
             onLoad={() => setLoaded(true)}
             onError={() => setError(true)}
-            className={`w-full h-full transition-all duration-500 ${
-              loaded ? 'opacity-100' : 'opacity-0'
+            className={`w-full h-full transition-opacity duration-300 ${
+              loaded ? 'opacity-100' : 'opacity-90'
             } ${
               isMilitary ? 'object-contain p-4 bg-white' : 'object-cover'
             } ${className}`}

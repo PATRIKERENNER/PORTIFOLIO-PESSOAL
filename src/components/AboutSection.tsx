@@ -50,7 +50,7 @@ export const AboutSection: React.FC = () => {
           </p>
         </div>
 
-        {/* Top Split: Bio & Manifesto */}
+        {/* Top Split: Bio & Manifesto with Portrait Photo */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start mb-16">
           <div className="lg:col-span-7 space-y-6 text-[#1B1B18]/80 leading-relaxed">
             <p className="text-base sm:text-lg border-l-2 border-[#A68B6E] pl-5">
@@ -74,17 +74,35 @@ export const AboutSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Card: Objective Manifesto */}
-          <div className="lg:col-span-5 border border-[#1B1B18]/15 bg-white p-6 sm:p-8 space-y-5 shadow-sm">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 border border-[#A68B6E] bg-[#A68B6E]/10 flex items-center justify-center text-[#A68B6E]">
-                <Landmark className="w-5 h-5" />
+          {/* Right Card: Portrait & Objective Manifesto */}
+          <div className="lg:col-span-5 border border-[#1B1B18]/15 bg-white p-6 sm:p-7 space-y-5 shadow-sm">
+            
+            {/* Profile Photo & Name header */}
+            <div className="flex items-center gap-4 border-b border-[#1B1B18]/10 pb-4">
+              <div className="relative w-16 h-16 sm:w-20 sm:h-20 shrink-0 border border-[#1B1B18] overflow-hidden bg-[#EAE8E2]">
+                <picture>
+                  <source srcSet={PERSONAL_INFO.profileImageWebp} type="image/webp" />
+                  <source srcSet={PERSONAL_INFO.profileImage} type="image/jpeg" />
+                  <img
+                    src={PERSONAL_INFO.profileImage}
+                    alt={PERSONAL_INFO.name}
+                    referrerPolicy="no-referrer"
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover"
+                  />
+                </picture>
               </div>
-              <div>
-                <h3 className="font-['Cormorant_Garamond'] text-xl font-bold uppercase text-[#1B1B18]">
-                  Diretriz Técnica
+              <div className="space-y-0.5">
+                <span className="font-['Space_Mono'] text-[0.6rem] uppercase tracking-widest text-[#A68B6E] font-bold block">
+                  PERFIL TÉCNICO
+                </span>
+                <h3 className="font-['Cormorant_Garamond'] text-xl sm:text-2xl font-bold uppercase text-[#1B1B18] leading-tight">
+                  Patrike Renner
                 </h3>
-                <span className="font-['Space_Mono'] text-[0.6rem] uppercase tracking-widest text-[#1B1B18]/50 block">Compromisso Ético</span>
+                <span className="font-['Space_Mono'] text-[0.62rem] text-[#1B1B18]/60 uppercase block">
+                  Arquiteto & Urbanista
+                </span>
               </div>
             </div>
 
@@ -92,7 +110,7 @@ export const AboutSection: React.FC = () => {
               &ldquo;{PERSONAL_INFO.objective}&rdquo;
             </p>
 
-            <div className="space-y-2.5 pt-3 text-xs border-t border-[#1B1B18]/10 font-['Space_Mono']">
+            <div className="space-y-2.5 pt-2 text-xs border-t border-[#1B1B18]/10 font-['Space_Mono']">
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-1.5 border-b border-[#1B1B18]/5 gap-1">
                 <span className="text-[#1B1B18]/50 uppercase text-[0.65rem]">CONSELHOS PROFISSIONAIS:</span>
                 <span className="font-bold text-[#1B1B18] text-[0.7rem] uppercase tracking-wide">
