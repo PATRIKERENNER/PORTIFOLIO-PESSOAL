@@ -393,7 +393,7 @@ export const PROJECTS: Project[] = [
       'Integração multi-institucional entre GEGEO, COPLAN e SUTRAN'
     ],
     deliverables: ['Dashboard Interativo SIG', 'Bases de Dados Georreferenciadas', 'Relatórios Técnicos para Obras de Engenharia'],
-    image: IMAGES.painelPare.jpg,
+    image: IMAGES.temploAuditorio.jpg,
     tags: ['SIG / GIS', 'Mobilidade Urbana', 'DER-DF', 'Georreferenciamento', 'Segurança Viária']
   },
   {
@@ -461,7 +461,7 @@ export const PROJECTS: Project[] = [
       'Projetos de infraestrutura de lazer e hospitalidade com acessibilidade'
     ],
     deliverables: ['Plantas Baixas e Cortes', 'Projeto Urbanístico de Loteamento Interno', 'Maquete Fotorrealista 3D'],
-    image: IMAGES.ruralMaranata.jpg,
+    image: IMAGES.lazerLago.jpg,
     tags: ['Arquitetura Rural', 'Masterplan 51k m²', 'RRT Registrado', 'Sustentabilidade']
   },
   {
@@ -479,7 +479,7 @@ export const PROJECTS: Project[] = [
       'Resolução de gargalos de conversão e segurança para pedestres e ciclistas'
     ],
     deliverables: ['Estudo de Readequação Viária', 'Proposta Paisagística em Vídeo e 3D', 'Relatório de Mobilidade'],
-    image: IMAGES.natalandia.jpg,
+    image: IMAGES.orlaUrbanismo.jpg,
     youtubeUrl: 'https://www.youtube.com/watch?v=ZfMd52BU09w',
     tags: ['Urbanismo', 'Mobilidade Urbana', 'Paisagismo', 'Consultoria Municipal']
   },
@@ -493,15 +493,15 @@ export const PROJECTS: Project[] = [
     role: 'Arquiteto Responsável Técnico',
     registry: 'RRT 13029248 - CAU/DF (Certidão de Acervo Nº 831049/2023)',
     area: '1.600 m²',
-    summary: 'Projeto arquitetônico de residência rural contemporânea com piscina de borda infinita, cocheiras, galinheiro ecológico e paisagismo com espécies do Cerrado.',
-    description: 'Projeto unindo conforto e funcionalidade rural: sede da chácara, área gourmet integrada, piscina, delimitação de áreas de plantio orgânico e confinamento zootécnico com soluções de drenagem sustentável.',
+    summary: 'Projeto arquitetônico de residência rural contemporânea com piscina, pérgolas, deck de madeira, garagem e paisagismo com espécies do Cerrado.',
+    description: 'Projeto unindo conforto e funcionalidade: residência contemporânea em 3D axonométrico, área gourmet integrada com deck, piscina, delimitação de áreas de lazer e convivência.',
     highlights: [
       'Uso exclusivo de flora adaptada ao Cerrado com baixo consumo hídrico',
-      'Levantamento cadastral e projeto de regularização fundiária da gleba'
+      'Levantamento cadastral e projeto executivo em maquete 3D axonométrica'
     ],
     deliverables: ['Projeto Arquitetônico Completo', 'Levantamento Paisagístico', 'Regularização Fundiária'],
-    image: IMAGES.ruralMaranata.jpg,
-    tags: ['Arquitetura Residencial Rural', 'Paisagismo Cerrado', 'RRT Ativo']
+    image: IMAGES.residenciaModerna.jpg,
+    tags: ['Arquitetura Residencial Contemporânea', 'Paisagismo', '3D Axonométrico', 'RRT Ativo']
   },
   {
     id: 'cro11-obras-militares',
@@ -521,7 +521,7 @@ export const PROJECTS: Project[] = [
       'Apoio técnico a vistorias, laudos de patologias e fiscalização de contratos'
     ],
     deliverables: ['Plantas Executivas e As-Built', 'Laudos de Inspeção Predial', 'Mapoteca Digital'],
-    image: IMAGES.brasaoExercito.jpg,
+    image: IMAGES.exercitoBrasileiro.jpg,
     tags: ['Exército Brasileiro', 'CRO-11', 'Obras Militares', 'Fiscalização']
   }
 ];

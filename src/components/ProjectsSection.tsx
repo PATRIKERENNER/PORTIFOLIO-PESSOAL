@@ -187,9 +187,16 @@ export const ProjectsSection: React.FC = () => {
                       Ver Estudo Completo <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                     </span>
                     {project.youtubeUrl && (
-                      <span className="flex items-center gap-1 text-red-600">
+                      <a
+                        href={project.youtubeUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="flex items-center gap-1 px-2.5 py-1 bg-red-50 text-red-600 border border-red-200 hover:bg-red-600 hover:text-white transition-colors text-[0.62rem] font-bold uppercase"
+                        title="Assistir Vídeo no YouTube"
+                      >
                         <Youtube className="w-3.5 h-3.5" /> Vídeo 3D
-                      </span>
+                      </a>
                     )}
                   </div>
                 </div>

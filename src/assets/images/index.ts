@@ -1,47 +1,58 @@
-import arenaAdebImg from './arena_adeb_complex_1787152339254.jpg';
-import arenaAdebWebp from './arena_adeb_complex_1787152339254.webp';
+import arenaAdebImg from './arena_adeb_complex_1788353985075.jpg';
+import arenaAdebWebp from './arena_adeb_complex_1788353985075.webp';
 
-import brasaoExercitoImg from './brasao_exercito_brasileiro_1787154145710.jpg';
-import brasaoExercitoWebp from './brasao_exercito_brasileiro_1787154145710.webp';
+import temploAuditorioImg from './templo_auditorio_cutaway_1788354004164.jpg';
+import temploAuditorioWebp from './templo_auditorio_cutaway_1788354004164.webp';
 
-import natalandiaImg from './natalandia_urban_1787152391817.jpg';
-import natalandiaWebp from './natalandia_urban_1787152391817.webp';
+import lazerLagoImg from './lazer_lago_pergolado_1788354029176.jpg';
+import lazerLagoWebp from './lazer_lago_pergolado_1788354029176.webp';
 
-import painelPareImg from './painel_pare_sig_1787152318283.jpg';
-import painelPareWebp from './painel_pare_sig_1787152318283.webp';
+import residenciaModernaImg from './residencia_moderna_3d_1788354051345.jpg';
+import residenciaModernaWebp from './residencia_moderna_3d_1788354051345.webp';
 
-import patrikeProfileImg from './patrike_profile_1787152288040.jpg';
-import patrikeProfileWebp from './patrike_profile_1787152288040.webp';
+import orlaUrbanismoImg from './orla_urbanismo_lago_1788354070933.jpg';
+import orlaUrbanismoWebp from './orla_urbanismo_lago_1788354070933.webp';
+
+import exercitoBrasileiroImg from './exercito_brasileiro_peacekeepers_1788354097054.jpg';
+import exercitoBrasileiroWebp from './exercito_brasileiro_peacekeepers_1788354097054.webp';
 
 import patrikeRennerProfileImg from './patrike_renner_profile_1787153663807.jpg';
 import patrikeRennerProfileWebp from './patrike_renner_profile_1787153663807.webp';
 
-import ruralMaranataImg from './rural_maranata_1787152366610.jpg';
-import ruralMaranataWebp from './rural_maranata_1787152366610.webp';
+import painelPareImg from './painel_pare_sig_1787152318283.jpg';
+import painelPareWebp from './painel_pare_sig_1787152318283.webp';
 
 export const IMAGES = {
   arenaAdeb: { jpg: arenaAdebImg, webp: arenaAdebWebp },
-  brasaoExercito: { jpg: brasaoExercitoImg, webp: brasaoExercitoWebp },
-  natalandia: { jpg: natalandiaImg, webp: natalandiaWebp },
-  painelPare: { jpg: painelPareImg, webp: painelPareWebp },
-  patrikeProfile: { jpg: patrikeProfileImg, webp: patrikeProfileWebp },
+  temploAuditorio: { jpg: temploAuditorioImg, webp: temploAuditorioWebp },
+  lazerLago: { jpg: lazerLagoImg, webp: lazerLagoWebp },
+  residenciaModerna: { jpg: residenciaModernaImg, webp: residenciaModernaWebp },
+  orlaUrbanismo: { jpg: orlaUrbanismoImg, webp: orlaUrbanismoWebp },
+  exercitoBrasileiro: { jpg: exercitoBrasileiroImg, webp: exercitoBrasileiroWebp },
   patrikeRenner: { jpg: patrikeRennerProfileImg, webp: patrikeRennerProfileWebp },
-  ruralMaranata: { jpg: ruralMaranataImg, webp: ruralMaranataWebp }
+  painelPare: { jpg: painelPareImg, webp: painelPareWebp },
+  
+  // Backward compatibility aliases
+  brasaoExercito: { jpg: exercitoBrasileiroImg, webp: exercitoBrasileiroWebp },
+  natalandia: { jpg: orlaUrbanismoImg, webp: orlaUrbanismoWebp },
+  ruralMaranata: { jpg: lazerLagoImg, webp: lazerLagoWebp }
 };
 
 export {
   arenaAdebImg,
   arenaAdebWebp,
-  brasaoExercitoImg,
-  brasaoExercitoWebp,
-  natalandiaImg,
-  natalandiaWebp,
-  painelPareImg,
-  painelPareWebp,
-  patrikeProfileImg,
-  patrikeProfileWebp,
+  temploAuditorioImg,
+  temploAuditorioWebp,
+  lazerLagoImg,
+  lazerLagoWebp,
+  residenciaModernaImg,
+  residenciaModernaWebp,
+  orlaUrbanismoImg,
+  orlaUrbanismoWebp,
+  exercitoBrasileiroImg,
+  exercitoBrasileiroWebp,
   patrikeRennerProfileImg,
   patrikeRennerProfileWebp,
-  ruralMaranataImg,
-  ruralMaranataWebp
+  painelPareImg,
+  painelPareWebp
 };
