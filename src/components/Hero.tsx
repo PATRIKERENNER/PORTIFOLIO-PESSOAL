@@ -128,23 +128,18 @@ export const Hero: React.FC = () => {
           <div className="lg:col-span-5">
             <div className="relative border border-[#1B1B18] p-6 sm:p-7 bg-white shadow-xl space-y-5">
               
-              {/* Header with Portrait */}
-              <div className="flex items-center gap-3.5 border-b border-[#1B1B18]/10 pb-4">
-                <div className="w-14 h-14 sm:w-16 sm:h-16 shrink-0 border border-[#1B1B18] overflow-hidden bg-[#EAE8E2]">
-                  <img
-                    src={PERSONAL_INFO.profileImage}
-                    alt={PERSONAL_INFO.name}
-                    loading="eager"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="flex-1 min-w-0">
+              {/* Header */}
+              <div className="flex items-center justify-between border-b border-[#1B1B18]/10 pb-4">
+                <div>
                   <span className="font-['Space_Mono'] text-[0.6rem] uppercase tracking-[0.2em] text-[#A68B6E] font-bold block">
                     PATRIKE RENNER // ARQUITETO & URBANISTA
                   </span>
-                  <div className="font-['Cormorant_Garamond'] text-xl sm:text-2xl font-bold uppercase text-[#1B1B18] truncate">
+                  <div className="font-['Cormorant_Garamond'] text-2xl font-bold uppercase text-[#1B1B18]">
                     Atendimento Técnico
                   </div>
+                </div>
+                <div className="w-10 h-10 border border-[#1B1B18]/20 bg-[#F8F7F4] flex items-center justify-center text-[#A68B6E]">
+                  <Landmark className="w-5 h-5" />
                 </div>
               </div>
 

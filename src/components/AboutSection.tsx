@@ -77,28 +77,17 @@ export const AboutSection: React.FC = () => {
           {/* Right Card: Portrait & Objective Manifesto */}
           <div className="lg:col-span-5 border border-[#1B1B18]/15 bg-white p-6 sm:p-7 space-y-5 shadow-sm">
             
-            {/* Profile Photo & Name header */}
-            <div className="flex items-center gap-4 border-b border-[#1B1B18]/10 pb-4">
-              <div className="relative w-16 h-16 sm:w-20 sm:h-20 shrink-0 border border-[#1B1B18] overflow-hidden bg-[#EAE8E2]">
-                <img
-                  src={PERSONAL_INFO.profileImage}
-                  alt={PERSONAL_INFO.name}
-                  loading="eager"
-                  decoding="async"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="space-y-0.5">
-                <span className="font-['Space_Mono'] text-[0.6rem] uppercase tracking-widest text-[#A68B6E] font-bold block">
-                  PERFIL TÉCNICO
-                </span>
-                <h3 className="font-['Cormorant_Garamond'] text-xl sm:text-2xl font-bold uppercase text-[#1B1B18] leading-tight">
-                  Patrike Renner
-                </h3>
-                <span className="font-['Space_Mono'] text-[0.62rem] text-[#1B1B18]/60 uppercase block">
-                  Arquiteto & Urbanista
-                </span>
-              </div>
+            {/* Name header without image */}
+            <div className="border-b border-[#1B1B18]/10 pb-4">
+              <span className="font-['Space_Mono'] text-[0.6rem] uppercase tracking-widest text-[#A68B6E] font-bold block">
+                PERFIL TÉCNICO
+              </span>
+              <h3 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl font-bold uppercase text-[#1B1B18] leading-tight mt-1">
+                Patrike Renner
+              </h3>
+              <span className="font-['Space_Mono'] text-[0.68rem] text-[#1B1B18]/60 uppercase block mt-0.5">
+                Arquiteto & Urbanista • Especialista em SIG & Obras
+              </span>
             </div>
 
             <p className="text-[#1B1B18]/80 text-sm leading-relaxed italic border-l-2 border-[#A68B6E] pl-4 py-1">
