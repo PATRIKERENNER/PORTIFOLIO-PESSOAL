@@ -20,7 +20,7 @@ import { PROJECTS, Project } from '../data/portfolioData';
 
 type FilterType = 'todos' | 'arquitetura' | 'urbanismo' | 'sig' | 'militar';
 
-// Fast Loading Optimized Picture with Skeleton and WebP support
+// Fast Loading Optimized Image
 const ProjectImage: React.FC<{
   src: string;
   alt: string;
@@ -28,53 +28,27 @@ const ProjectImage: React.FC<{
   className?: string;
 }> = ({ src, alt, isMilitary, className = '' }) => {
   const [loaded, setLoaded] = useState(false);
-  const [error, setError] = useState(false);
-  const imgRef = React.useRef<HTMLImageElement>(null);
-
-  // Derive WebP path
-  const webpSrc = src.replace(/\.jpg$/, '.webp');
-
-  React.useEffect(() => {
-    if (imgRef.current?.complete && imgRef.current?.naturalWidth > 0) {
-      setLoaded(true);
-    }
-  }, [src]);
 
   return (
     <div className="relative w-full h-full bg-[#EAE8E2] overflow-hidden flex items-center justify-center">
-      {/* Skeleton / Shimmer during slow connection loading */}
-      {!loaded && !error && (
+      {!loaded && (
         <div className="absolute inset-0 bg-[#EAE8E2] animate-pulse flex flex-col items-center justify-center text-[#1B1B18]/30 gap-2 pointer-events-none z-0">
           <ImageIcon className="w-5 h-5 opacity-40" />
         </div>
       )}
 
-      {error ? (
-        <div className="p-4 text-center text-xs font-['Space_Mono'] text-[#1B1B18]/40 flex flex-col items-center gap-1">
-          <ImageIcon className="w-5 h-5 opacity-30" />
-          <span className="text-[0.6rem] uppercase tracking-wider">{alt}</span>
-        </div>
-      ) : (
-        <picture className="w-full h-full relative z-10">
-          <source srcSet={webpSrc} type="image/webp" />
-          <source srcSet={src} type="image/jpeg" />
-          <img
-            ref={imgRef}
-            src={src}
-            alt={alt}
-            referrerPolicy="no-referrer"
-            loading="lazy"
-            decoding="async"
-            onLoad={() => setLoaded(true)}
-            onError={() => setError(true)}
-            className={`w-full h-full transition-opacity duration-300 ${
-              loaded ? 'opacity-100' : 'opacity-90'
-            } ${
-              isMilitary ? 'object-contain p-4 bg-white' : 'object-cover'
-            } ${className}`}
-          />
-        </picture>
-      )}
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        decoding="async"
+        onLoad={() => setLoaded(true)}
+        className={`w-full h-full transition-opacity duration-300 relative z-10 ${
+          loaded ? 'opacity-100' : 'opacity-80'
+        } ${
+          isMilitary ? 'object-contain p-4 bg-white' : 'object-cover'
+        } ${className}`}
+      />
     </div>
   );
 };

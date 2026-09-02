@@ -80,18 +80,13 @@ export const AboutSection: React.FC = () => {
             {/* Profile Photo & Name header */}
             <div className="flex items-center gap-4 border-b border-[#1B1B18]/10 pb-4">
               <div className="relative w-16 h-16 sm:w-20 sm:h-20 shrink-0 border border-[#1B1B18] overflow-hidden bg-[#EAE8E2]">
-                <picture>
-                  <source srcSet={PERSONAL_INFO.profileImageWebp} type="image/webp" />
-                  <source srcSet={PERSONAL_INFO.profileImage} type="image/jpeg" />
-                  <img
-                    src={PERSONAL_INFO.profileImage}
-                    alt={PERSONAL_INFO.name}
-                    referrerPolicy="no-referrer"
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover"
-                  />
-                </picture>
+                <img
+                  src={PERSONAL_INFO.profileImage}
+                  alt={PERSONAL_INFO.name}
+                  loading="eager"
+                  decoding="async"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="space-y-0.5">
                 <span className="font-['Space_Mono'] text-[0.6rem] uppercase tracking-widest text-[#A68B6E] font-bold block">

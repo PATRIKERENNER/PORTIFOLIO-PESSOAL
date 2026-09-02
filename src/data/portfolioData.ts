@@ -1,3 +1,5 @@
+import { IMAGES } from '../assets/images';
+
 export interface Project {
   id: string;
   title: string;
@@ -123,9 +125,9 @@ export const PERSONAL_INFO = {
   phoneClean: '5561998471961',
   location: 'Brasília - DF, Brasil',
   armyUnit: 'Comissão Regional de Obras da 11ª Região Militar (CRO/11 - QGEx)',
-  profileImage: '/images/patrike_renner_profile_1787153663807.jpg',
-  profileImageWebp: '/images/patrike_renner_profile_1787153663807.webp',
-  armyEmblem: '/images/brasao_exercito_brasileiro_1787154145710.jpg'
+  profileImage: IMAGES.patrikeRenner.jpg,
+  profileImageWebp: IMAGES.patrikeRenner.webp,
+  armyEmblem: IMAGES.brasaoExercito.jpg
 };
 
 export const HIGHLIGHTS_METRICS = [
@@ -391,7 +393,7 @@ export const PROJECTS: Project[] = [
       'Integração multi-institucional entre GEGEO, COPLAN e SUTRAN'
     ],
     deliverables: ['Dashboard Interativo SIG', 'Bases de Dados Georreferenciadas', 'Relatórios Técnicos para Obras de Engenharia'],
-    image: '/images/painel_pare_sig_1787152318283.jpg',
+    image: IMAGES.painelPare.jpg,
     tags: ['SIG / GIS', 'Mobilidade Urbana', 'DER-DF', 'Georreferenciamento', 'Segurança Viária']
   },
   {
@@ -425,7 +427,7 @@ export const PROJECTS: Project[] = [
       'Levantamento cadastral de 33.612 m² e memorial descritivo completo'
     ],
     deliverables: ['Masterplan Geral', 'Memorial Descritivo e Cadastral', 'Estudo de Viabilidade de Localização', 'Maquetes Eletrônicas 3D'],
-    image: '/images/arena_adeb_complex_1787152339254.jpg',
+    image: IMAGES.arenaAdeb.jpg,
     youtubeUrl: 'https://www.youtube.com/watch?v=ox1f0-qgYCY',
     tags: ['Masterplan', 'Patente CAU-BR', 'Grande Porte', '33.612 m²', 'BIM']
   },
@@ -459,7 +461,7 @@ export const PROJECTS: Project[] = [
       'Projetos de infraestrutura de lazer e hospitalidade com acessibilidade'
     ],
     deliverables: ['Plantas Baixas e Cortes', 'Projeto Urbanístico de Loteamento Interno', 'Maquete Fotorrealista 3D'],
-    image: '/images/rural_maranata_1787152366610.jpg',
+    image: IMAGES.ruralMaranata.jpg,
     tags: ['Arquitetura Rural', 'Masterplan 51k m²', 'RRT Registrado', 'Sustentabilidade']
   },
   {
@@ -477,7 +479,7 @@ export const PROJECTS: Project[] = [
       'Resolução de gargalos de conversão e segurança para pedestres e ciclistas'
     ],
     deliverables: ['Estudo de Readequação Viária', 'Proposta Paisagística em Vídeo e 3D', 'Relatório de Mobilidade'],
-    image: '/images/natalandia_urban_1787152391817.jpg',
+    image: IMAGES.natalandia.jpg,
     youtubeUrl: 'https://www.youtube.com/watch?v=ZfMd52BU09w',
     tags: ['Urbanismo', 'Mobilidade Urbana', 'Paisagismo', 'Consultoria Municipal']
   },
@@ -498,7 +500,7 @@ export const PROJECTS: Project[] = [
       'Levantamento cadastral e projeto de regularização fundiária da gleba'
     ],
     deliverables: ['Projeto Arquitetônico Completo', 'Levantamento Paisagístico', 'Regularização Fundiária'],
-    image: '/images/rural_maranata_1787152366610.jpg',
+    image: IMAGES.ruralMaranata.jpg,
     tags: ['Arquitetura Residencial Rural', 'Paisagismo Cerrado', 'RRT Ativo']
   },
   {
@@ -519,7 +521,7 @@ export const PROJECTS: Project[] = [
       'Apoio técnico a vistorias, laudos de patologias e fiscalização de contratos'
     ],
     deliverables: ['Plantas Executivas e As-Built', 'Laudos de Inspeção Predial', 'Mapoteca Digital'],
-    image: '/images/brasao_exercito_brasileiro_1787154145710.jpg',
+    image: IMAGES.brasaoExercito.jpg,
     tags: ['Exército Brasileiro', 'CRO-11', 'Obras Militares', 'Fiscalização']
   }
 ];
